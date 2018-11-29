@@ -83,7 +83,6 @@ public class ScratchSprite extends ScratchObj {
 		img.addChild(geomShape);
 		showCostume(0);
 		setScratchXY(0, 0);
-        showDetails();
 	}
 
 	private function initMedia():void {
