@@ -21,69 +21,69 @@
 // John Maloney, September 2010
 
 package scratch {
-import com.goshare.gpipservice.GpipService;
+    import assets.Resources;
 
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-import flash.display.DisplayObject;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.events.SampleDataEvent;
-import flash.events.StatusEvent;
-import flash.events.TimerEvent;
-import flash.geom.Matrix;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.media.Microphone;
-import flash.media.SoundTransform;
-import flash.net.FileFilter;
-import flash.net.FileReference;
-import flash.system.System;
-import flash.text.TextField;
-import flash.ui.Keyboard;
-import flash.utils.ByteArray;
-import flash.utils.Timer;
-import flash.utils.clearTimeout;
-import flash.utils.setTimeout;
+    import blocks.Block;
+    import blocks.BlockArg;
 
-import assets.Resources;
+    import com.goshare.gpipservice.GpipService;
 
-import blocks.Block;
-import blocks.BlockArg;
+    import extensions.ExtensionManager;
 
-import extensions.ExtensionManager;
+    import flash.display.Bitmap;
+    import flash.display.BitmapData;
+    import flash.display.DisplayObject;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.KeyboardEvent;
+    import flash.events.SampleDataEvent;
+    import flash.events.StatusEvent;
+    import flash.events.TimerEvent;
+    import flash.geom.Matrix;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.media.Microphone;
+    import flash.media.SoundTransform;
+    import flash.net.FileFilter;
+    import flash.net.FileReference;
+    import flash.system.System;
+    import flash.text.TextField;
+    import flash.ui.Keyboard;
+    import flash.utils.ByteArray;
+    import flash.utils.Timer;
+    import flash.utils.clearTimeout;
+    import flash.utils.setTimeout;
 
-import interpreter.Interpreter;
-import interpreter.Variable;
+    import interpreter.Interpreter;
+    import interpreter.Variable;
 
-import leelib.util.flvEncoder.ByteArrayFlvEncoder;
-import leelib.util.flvEncoder.FlvEncoder;
+    import leelib.util.flvEncoder.ByteArrayFlvEncoder;
+    import leelib.util.flvEncoder.FlvEncoder;
 
-import logging.LogLevel;
+    import logging.LogLevel;
 
-import primitives.VideoMotionPrims;
+    import primitives.VideoMotionPrims;
 
-import sound.ScratchSoundPlayer;
+    import sound.ScratchSoundPlayer;
 
-import translation.Translator;
+    import translation.Translator;
 
-import ui.BlockPalette;
-import ui.RecordingSpecEditor;
-import ui.SharingSpecEditor;
-import ui.media.MediaInfo;
+    import ui.BlockPalette;
+    import ui.RecordingSpecEditor;
+    import ui.SharingSpecEditor;
+    import ui.media.MediaInfo;
 
-import uiwidgets.DialogBox;
+    import uiwidgets.DialogBox;
 
-import util.CachedTimer;
-import util.ObjReader;
-import util.OldProjectReader;
-import util.ProjectIO;
+    import util.CachedTimer;
+    import util.ObjReader;
+    import util.OldProjectReader;
+    import util.ProjectIO;
 
-import watchers.ListWatcher;
-import watchers.Watcher;
+    import watchers.ListWatcher;
+    import watchers.Watcher;
 
-public class ScratchRuntime {
+    public class ScratchRuntime {
 
 	// Scratch uses these pseudo-Unicode values to map arrow keys as if they were printable characters.
 	// Changing these values may break compatibility with existing projects using "hacked" keypress blocks.
