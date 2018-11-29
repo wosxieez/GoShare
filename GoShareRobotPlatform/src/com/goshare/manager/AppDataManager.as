@@ -35,11 +35,6 @@ package com.goshare.manager
 		public var projectType:int = 0;
 		
 		/**
-		 * 当前来人人脸信息
-		 */
-		public var currFaceInfo:Object;
-		
-		/**
 		 * 当前系统指令清单
 		 */
 		public var commandsList:Array = [];

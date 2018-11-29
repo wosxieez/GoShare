@@ -160,7 +160,7 @@ package com.goshare.manager
 			}
 			
 			// 存储到全局信息里
-			AppDataManager.getInstance().currFaceInfo = faceInfo;
+			app.runtime.currentFaceInfo = faceInfo;
 			// 当前人脸数量
 			app.runtime.currentFacesNum = 1;
 			
@@ -172,6 +172,12 @@ package com.goshare.manager
 				if (stack.op == 'peopleFaceNear') {
 					app.interp.toggleThread(stack, target);
 				}
+				if (stack.op == 'designatedPersonNear') {
+					var iwantName:String = String(app.interp.arg(stack, 0));
+					if (iwantName == faceInfo["person_name"]) {
+						app.interp.toggleThread(stack, target);
+					}
+				}
 			}
 			app.runtime.allStacksAndOwnersDo(findPeopleFaceNearOp);
 		}
@@ -182,7 +188,7 @@ package com.goshare.manager
 		private function peopleLeaveHandler():void
 		{
 			// 存储到全局信息里
-			AppDataManager.getInstance().currFaceInfo = null;
+			app.runtime.currentFaceInfo = null;
 			// 当前人脸数量
 			app.runtime.currentFacesNum = 0;
 			// 触发所有监听block

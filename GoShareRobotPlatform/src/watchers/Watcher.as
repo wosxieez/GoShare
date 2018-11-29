@@ -255,8 +255,8 @@ public class Watcher extends Sprite implements DragClient {
 			case "currentFacesNum": return runtime.currentFacesNum;
 			case "robotSaidTxt": return runtime.lastRobotSaid;
 			case "peopleSaidTxt": return runtime.lastPeopleSaid;
-//			case "getPeopleName": return ;
-//			case "getPeopleIdentity": return ;
+//			case "getPeopleName": return runtime.currentFaceInfo;
+//			case "getPeopleIdentity": return runtime.currentFaceInfo;
 		}
 
 		if(ExtensionManager.hasExtensionPrefix(cmd)) {

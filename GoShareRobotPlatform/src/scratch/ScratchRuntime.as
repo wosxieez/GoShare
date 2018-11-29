@@ -113,6 +113,7 @@ public class ScratchRuntime {
 	public var lastPeopleAnswer:String = ''; // goshare ' robot ask and wait ' block  need
 	public var lastPeopleSaid:String = '';
 	public var lastRobotSaid:String = '';
+	public var currentFaceInfo:Object; // current faceInfo in front of robot
 	public var currentFacesNum:int = 0; // current face num in front of robot
 	public var currentSceneDesc:String = ''; // current scene desc
 	

@@ -55,6 +55,7 @@ package primitives {
 			primTable["loadProjectComplete"] = loadProjectComplete;
             primTable["connectGpip"] = connectGpip;
             primTable["connectControler"] = connectControler;
+			primTable["designatedPersonNear"] = interp.primNoop;
 			primTable["peopleFaceNear"] = interp.primNoop;
 			primTable["peopleFaceLeave"] = interp.primNoop;
 			primTable["getPeopleIdentity"] = getCurrPeopleIndentity;
@@ -73,7 +74,7 @@ package primitives {
             primTable["robotSaid"] = primGoShareTTS;
 			primTable["robotAskAndWait"] = robotAskAndWaitHandler;
 			primTable["peopleAnswer"] = function(b:*):* { return app.runtime.lastPeopleAnswer };
-            primTable["include"] = function(b:*):* { return includeRelationJudge(interp.arg(b, 0), interp.arg(b, 1))};
+			primTable["include"] = includeRelationJudge;
 			
 			primTable["showExpression"] = showFaceExpreesion;
 			primTable["whenShowExpression"] = interp.primNoop;
@@ -87,6 +88,9 @@ package primitives {
             primTable["switchScene"] = noticeSwitchSceneHandler;
             primTable["currentScene"] = getCurrentSceneHandler;
 			primTable["whenReceiveSwitchScene"] = interp.primNoop;
+			
+			primTable["faceIsExist"] = function(b:*):* { return app.runtime.currentFaceInfo? true:false};
+			primTable["faceIsLeave"] = function(b:*):* { return !app.runtime.currentFaceInfo};
 			
 //            primTable["goSharePDF:"] = primGoSharePDF;
 //            primTable["goShareSWF:"] = primGoShareSWF;
@@ -188,7 +192,7 @@ package primitives {
 		 */
 		public function getCurrPeopleIndentity(b:Block):String
 		{
-			var peopleInfo:Object = AppDataManager.getInstance().currFaceInfo;
+			var peopleInfo:Object = app.runtime.currentFaceInfo;
 			
 			if (peopleInfo) {
 				if (peopleInfo["isStranger"]) {
@@ -209,7 +213,7 @@ package primitives {
 		 */
 		public function getCurrPeopleName(b:Block):String
 		{
-			var peopleInfo:Object = AppDataManager.getInstance().currFaceInfo;
+			var peopleInfo:Object = app.runtime.currentFaceInfo;
 			
 			if (peopleInfo) {
 				if (peopleInfo["isStranger"]) {
@@ -334,8 +338,11 @@ package primitives {
 		 */
 		private static const emptyDict:Dictionary = new Dictionary();
 		private static var lcDict:Dictionary = new Dictionary();
-		private function includeRelationJudge(a1:*, a2:*):Boolean
+		private function includeRelationJudge(b:Block):Boolean
 		{
+			var a1:* = interp.arg(b, 0);
+			var a2:* = interp.arg(b, 1);
+			
 			// This is static so it can be used by the list "contains" primitive.
 			var n1:Number = Interpreter.asNumber(a1);
 			var n2:Number = Interpreter.asNumber(a2);
