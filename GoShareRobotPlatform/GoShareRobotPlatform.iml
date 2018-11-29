@@ -8,12 +8,6 @@
             <entry library-id="70df4780-4ad0-4588-a1b4-17dab7dab240">
               <dependency linkage="Merged" />
             </entry>
-            <entry module-name="GoshareConnect" build-configuration-name="GoshareConnect">
-              <dependency linkage="Merged" />
-            </entry>
-            <entry module-name="GoshareServiceLib" build-configuration-name="GoshareServiceLib">
-              <dependency linkage="Merged" />
-            </entry>
           </entries>
           <sdk name="AIRSDK_26" />
         </dependencies>
@@ -77,7 +71,5 @@
         <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="GoshareServiceLib" exported="" />
-    <orderEntry type="module" module-name="GoshareConnect" exported="" />
   </component>
 </module>
