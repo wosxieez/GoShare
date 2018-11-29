@@ -125,7 +125,7 @@ package {
 
     import watchers.ListWatcher;
 
-    [SWF(width="1100", height="768")]
+    [SWF(width="1366", height="768")]
     public class Scratch extends Application {
         // Version
         public static const versionString:String = 'V1.0.0';
@@ -196,6 +196,8 @@ package {
 
             // This one must finish before most other queries can start, so do it separately
             determineJSAccess();
+
+            addEventListener(Event.ADDED_TO_STAGE, this_addedToStageHandler);
         }
 
         protected function determineJSAccess():void {
@@ -230,9 +232,6 @@ package {
             stage.frameRate = 30;
 
             stage.addEventListener(MouseEvent.CLICK, stage_clickHandler)
-
-            /// 移动到舞台中央
-            ScreenUtil.moveToScreenCenter(stage.nativeWindow)
 
             /// 设置舞台的背景颜色
             if (stage.hasOwnProperty('color')) {
@@ -1016,7 +1015,7 @@ package {
 
         public function fixLayout():void {
             var w:int = stage.stageWidth;
-            var h:int = stage.stageHeight - 1; // fix to show bottom border...
+            var h:int = stage.stageHeight
 
             w = Math.ceil(w / scaleX);
             h = Math.ceil(h / scaleY);
@@ -1708,6 +1707,10 @@ package {
             var args:Array = jsCallbackArray.concat(); // clone
             args.splice(1, 0, returnValueCallback);
             externalCall.apply(this, args);
+        }
+
+        private function this_addedToStageHandler(event:Event):void {
+            ScreenUtil.moveToScreenCenter(stage.nativeWindow)
         }
     }
 }
