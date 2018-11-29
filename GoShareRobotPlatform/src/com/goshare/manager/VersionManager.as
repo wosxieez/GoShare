@@ -1,22 +1,21 @@
 package com.goshare.manager
 {
     import com.goshare.event.VersionEvent;
-    import com.xiaomu.event.VersionEvent;
-	
-	import flash.desktop.NativeApplication;
-	import flash.desktop.Updater;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IOErrorEvent;
-	import flash.events.ProgressEvent;
-	import flash.filesystem.File;
-	import flash.filesystem.FileMode;
-	import flash.filesystem.FileStream;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
-	import flash.net.URLRequest;
-	
-	/**
+
+    import flash.desktop.NativeApplication;
+    import flash.desktop.Updater;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.IOErrorEvent;
+    import flash.events.ProgressEvent;
+    import flash.filesystem.File;
+    import flash.filesystem.FileMode;
+    import flash.filesystem.FileStream;
+    import flash.net.URLLoader;
+    import flash.net.URLLoaderDataFormat;
+    import flash.net.URLRequest;
+
+    /**
 	 * 检查更新成功后派发 
 	 */	
 	[Event(name="checkResult", type="com.goshare.event.VersionEvent")]

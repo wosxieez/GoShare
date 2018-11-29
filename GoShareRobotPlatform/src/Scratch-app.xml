@@ -4,8 +4,8 @@
     <id>com.goshare.editor</id>
     <filename>智能课件编辑大师</filename>
     <name>智能课件编辑大师</name>
-    <versionNumber>1.0.0</versionNumber>
-    <versionLabel>V1.0.0</versionLabel>
+    <versionNumber>1.0.1</versionNumber>
+    <versionLabel>V1.0.1</versionLabel>
     <initialWindow>
         <content>[This value will be overwritten by Flash Builder in the output app.xml]</content>
         <systemChrome>none</systemChrome>

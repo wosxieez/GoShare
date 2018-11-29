@@ -5,7 +5,7 @@
       <configuration name="Scratch" target-platform="Desktop" pure-as="true" main-class="Scratch" output-file="Scratch.swf" output-folder="$MODULE_DIR$/bin-debug">
         <dependencies>
           <entries>
-            <entry library-id="70df4780-4ad0-4588-a1b4-17dab7dab240">
+            <entry library-id="de337e6f-d2f9-42c0-84ea-f9238492d359">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -15,12 +15,25 @@
           <map>
             <entry key="compiler.locale" value="en_US" />
           </map>
-          <option name="additionalOptions" value="-define=SCRATCH::allow3d,false  -define=SCRATCH::revision,false" />
+          <option name="additionalOptions" value="-define=SCRATCH::allow3d,false -define=SCRATCH::revision,false" />
         </compiler-options>
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Scratch-app.xml" package-file-name="GoshareEditor">
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Scratch-app.xml" package-file-name="Scratch">
           <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/conf" path-in-package="conf" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/icons" path-in-package="icons" />
-            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media" path-in-package="media" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/libs" path-in-package="media/libs" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/README.md" path-in-package="media/README.md" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/0377a7476136e5e8c780c64a4828922d.wav" path-in-package="media/0377a7476136e5e8c780c64a4828922d.wav" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/21f82b7f1a83c501539c5031aea4fa8c.wav" path-in-package="media/21f82b7f1a83c501539c5031aea4fa8c.wav" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/2dbde2ae53f2744b87be09581281610f.png" path-in-package="media/2dbde2ae53f2744b87be09581281610f.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/3477ccfde26047eeb93ff43a21ac7d3d.wav" path-in-package="media/3477ccfde26047eeb93ff43a21ac7d3d.wav" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/6b3d87ba2a7f89be703163b6c1d4c964.png" path-in-package="media/6b3d87ba2a7f89be703163b6c1d4c964.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/83a9787d4cb6f3b7632b4ddfebf74367.wav" path-in-package="media/83a9787d4cb6f3b7632b4ddfebf74367.wav" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/afab2d2141e9811bd89e385e9628cb5f.png" path-in-package="media/afab2d2141e9811bd89e385e9628cb5f.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/afab2d2141e9811bd89e385e9628cb5f.svg" path-in-package="media/afab2d2141e9811bd89e385e9628cb5f.svg" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/c3464cbe80c4d3adb225383d9e84b5d4.png" path-in-package="media/c3464cbe80c4d3adb225383d9e84b5d4.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/dd85f581a3ba8d590543bd6e87d6fd14.jpg" path-in-package="media/dd85f581a3ba8d590543bd6e87d6fd14.jpg" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media/696e473a34f4eb39422de76afff261e7.json" path-in-package="media/696e473a34f4eb39422de76afff261e7.json" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/UI" path-in-package="assets/UI" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/fonts" path-in-package="assets/fonts" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/blocks" path-in-package="assets/blocks" />
@@ -39,13 +52,12 @@
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/mosaic.pbk" path-in-package="filters/mosaic.pbk" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/fisheye.pbk" path-in-package="filters/fisheye.pbk" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/pixelate.pbk" path-in-package="filters/pixelate.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/newIcons" path-in-package="newIcons" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/render3d/shaders" path-in-package="render3d/shaders" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/soundbank/drums" path-in-package="soundbank/drums" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/soundbank/instruments" path-in-package="soundbank/instruments" />
-            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/conf" path-in-package="conf" />
-            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/newIcons" path-in-package="newIcons" />
           </files-to-package>
-          <AirSigningOptions keystore-path="$MODULE_DIR$/../../../合肥小木软件/xiaomu.p12" />
+          <AirSigningOptions keystore-path="$MODULE_DIR$/../../../合肥小木软件/xiaomu.p12" use-temp-certificate="false" />
         </packaging-air-desktop>
         <packaging-android />
         <packaging-ios />
@@ -62,7 +74,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="70df4780-4ad0-4588-a1b4-17dab7dab240" />
+        <properties id="de337e6f-d2f9-42c0-84ea-f9238492d359" />
         <CLASSES>
           <root url="file://$MODULE_DIR$/libs" />
         </CLASSES>

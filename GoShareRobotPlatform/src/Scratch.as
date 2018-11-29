@@ -296,6 +296,7 @@ package {
                 AppAlert.show(
                         "最新版本:" + VersionManager.getInstance().latestVersionLabel +
                         "\r当前版本:" + VersionManager.getInstance().curVersionLabel +
+                        "\r\n" + VersionManager.getInstance().description +
                         "\r\r发现新版应用程序，是否立即更新",
                         "版本提示",
                         Alert.OK|Alert.CANCEL,
