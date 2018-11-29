@@ -39,6 +39,8 @@ import extensions.ExtensionManager;
 
 import interpreter.Variable;
 
+import primitives.GoSharePrims;
+
 import scratch.ScratchObj;
 import scratch.ScratchRuntime;
 import scratch.ScratchSprite;
@@ -255,8 +257,9 @@ public class Watcher extends Sprite implements DragClient {
 			case "currentFacesNum": return runtime.currentFacesNum;
 			case "robotSaidTxt": return runtime.lastRobotSaid;
 			case "peopleSaidTxt": return runtime.lastPeopleSaid;
-//			case "getPeopleName": return runtime.currentFaceInfo;
-//			case "getPeopleIdentity": return runtime.currentFaceInfo;
+			case "getPeopleName": return GoSharePrims.getCurrentPeopleInfo("name");
+			case "getPeopleIdentity": return GoSharePrims.getCurrentPeopleInfo("indentity");
+			case "getPeopleSubjects": return GoSharePrims.getCurrentPeopleInfo("subjects");
 		}
 
 		if(ExtensionManager.hasExtensionPrefix(cmd)) {

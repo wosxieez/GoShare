@@ -58,8 +58,9 @@ package primitives {
 			primTable["designatedPersonNear"] = interp.primNoop;
 			primTable["peopleFaceNear"] = interp.primNoop;
 			primTable["peopleFaceLeave"] = interp.primNoop;
-			primTable["getPeopleIdentity"] = getCurrPeopleIndentity;
-			primTable["getPeopleName"] = getCurrPeopleName;
+			primTable["getPeopleIdentity"] = function(b:*):* { return getCurrentPeopleInfo("indentity")};
+			primTable["getPeopleName"] = function(b:*):* { return getCurrentPeopleInfo("name")};
+			primTable["getPeopleSubjects"] = function(b:*):* { return getCurrentPeopleInfo("subjects")};
 			primTable["faceFuncOpenAndClose"] = faceFuncOpenAndClose;
 			primTable["asrFuncOpenAndClose"] = asrFuncOpenAndClose;
 			primTable["waitCommands"] = changeToWaitCommands;
@@ -188,44 +189,38 @@ package primitives {
 		}
 		
 		/**
-		 * 获取当前来人身份
+		 * 获取当前来人身份信息
+		 * @param key 具体身份关键字：name-名字; indentity-角色; subjects-任职科目
 		 */
-		public function getCurrPeopleIndentity(b:Block):String
+		public static function getCurrentPeopleInfo(key:String):String
 		{
-			var peopleInfo:Object = app.runtime.currentFaceInfo;
+			var resultText:String = "";
 			
+			var peopleInfo:Object = Scratch.app.runtime.currentFaceInfo;
 			if (peopleInfo) {
 				if (peopleInfo["isStranger"]) {
-					// 陌生人 - 无身份
-					return "陌生人";
+					// 陌生人 - 姓名、任职科目均无
+					if (key == "indentity") {
+						resultText = "陌生人";
+					}
 				} else {
 					// 已注册  - 有身份
-					var duty:Object = JSON.parse(peopleInfo["duty"]);
-					return duty.roleName;
+					if (key == "name") {
+						resultText = peopleInfo["person_name"];
+					} else if (key == "indentity") {
+						if (peopleInfo["duty"] && peopleInfo["duty"] != "") {
+							var duty:Object = JSON.parse(peopleInfo["duty"]);
+							resultText = duty.roleName;
+						}
+					} else if (key == "subjects") {
+						if (peopleInfo["work"] && peopleInfo["work"] != "") {
+							var workInfo:Object = JSON.parse(peopleInfo["work"]);
+							resultText = workInfo["subjectName"];
+						}
+					}
 				}
-			} else {
-				return "陌生人";
 			}
-		}
-		
-		/**
-		 * 获取当前来人姓名
-		 */
-		public function getCurrPeopleName(b:Block):String
-		{
-			var peopleInfo:Object = app.runtime.currentFaceInfo;
-			
-			if (peopleInfo) {
-				if (peopleInfo["isStranger"]) {
-					// 陌生人 - 无身份
-					return "";
-				} else {
-					// 已注册  - 有身份
-					return peopleInfo["person_name"];
-				}
-			} else {
-				return "";
-			}
+			return resultText;
 		}
 		
 		/**

@@ -236,10 +236,11 @@ package {
 			[".当机器人识别出 %s 时", "h", 5, "designatedPersonNear"],
 			[".当前人脸身份", "r", 5, "getPeopleIdentity"],
 			[".当前人脸身份组", "r", 5, "getPeopleName"],
+			[".当前人脸任职科目", "r", 5, "getPeopleSubjects"],
 			["-"],
-			[".收到 %m.scenes 场景切换请求", "h", 5, "whenReceiveSwitchScene"],
+			[".当机器人切换至 %m.scenes 场景 时", "h", 5, "whenReceiveSwitchScene"],
+			[".机器人切换至 %m.scenes 场景", " ", 5, "switchScene"],
 			[".当前所处场景", "r", 5, "currentScene"],
-			[".切换 %m.scenes 场景", " ", 5, "switchScene"],
 			["-"],
 
             // control - sprite
