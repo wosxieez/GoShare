@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+	<Task id="01" desc="唤醒" beginTime="08:00:00" endTime="08:20:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="02" desc="晨读" beginTime="08:20:00" endTime="09:00:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="03" desc="早上整理" beginTime="09:00:00" endTime="09:30:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="04" desc="第一节课" beginTime="09:30:00" endTime="10:10:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="05" desc="课间休息" beginTime="10:10:00" endTime="10:25:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="06" desc="第二节课" beginTime="10:25:00" endTime="11:05:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="07" desc="课间休息" beginTime="11:05:00" endTime="11:20:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="08" desc="第三节课" beginTime="11:20:00" endTime="12:00:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="09" desc="中午整理" beginTime="12:00:00" endTime="13:40:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="10" desc="第四节课" beginTime="13:40:00" endTime="14:20:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="11" desc="课间休息" beginTime="14:20:00" endTime="14:35:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="12" desc="第五节课" beginTime="14:35:00" endTime="15:15:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="13" desc="课间休息" beginTime="15:15:00" endTime="15:30:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="14" desc="第六节课" beginTime="15:30:00" endTime="16:10:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="15" desc="课间休息" beginTime="16:10:00" endTime="16:25:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="16" desc="第七节课" beginTime="16:25:00" endTime="17:05:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="17" desc="傍晚整理" beginTime="17:05:00" endTime="17:20:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="18" desc="晚自习" beginTime="17:20:00" endTime="18:00:00" sceneName="classIng" teacherID="001" teacherName="方超" playBookID=""></Task>
+	<Task id="19" desc="傍晚整理" beginTime="18:00:00" endTime="19:00:00" sceneName="classFinish" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="20" desc="维护" beginTime="19:00:00" endTime="20:30:00" sceneName="classIng" teacherID="" teacherName="" playBookID=""></Task>
+	<Task id="21" desc="睡眠" beginTime="20:30:00" endTime="" sceneName="close" teacherID="" teacherName="" playBookID=""></Task>
+</Root>

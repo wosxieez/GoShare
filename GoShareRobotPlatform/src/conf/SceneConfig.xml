@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+	<!-- 前端预设的几种场景布局 -->
+    <!-- 为了支持自适应布局 -->
+    <Scene id="001000" name="classFinish" defaultState="classFinish">
+        <FacePlayer x="0" y="0" w="1" h="1"/>
+        <ChatPlayer x="0.01" y="0.80578125" w="0.98" h="0.17421875"/>
+    </Scene>
+
+    <Scene id="002000" name="classReady" defaultState="playBefore">
+        <FacePlayer x="0" y="0" w="1" h="1"/>
+        <ChatPlayer x="0.01" y="0.80578125" w="0.98" h="0.17421875"/>
+    </Scene>
+
+    <Scene id="003000" name="classIng" defaultState="playBefore">
+        <FacePlayer x="0" y="0" w="0.24"  h="1"/>
+        <ClassPlayer x="0.25" y="0.01" w="0.74" h="0.8559375"/>
+        <ChatPlayer x="0.25" y="0.8759375" w="0.74" h="0.1140625"/>
+    </Scene>
+	
+	<!--  平台场景清单 -->
+	<GpipScene name="OnService@InClass@BeforeExeCourseware" desc="上课时-课件播放前"/>
+	<GpipScene name="OnService@InClass@InExeCourseware" desc="上课时-课件播放中"/>
+	<GpipScene name="OnService@InClass@AfterExeCourseware" desc="上课时-课件播放结束后"/>
+	<GpipScene name="OnService@OutsideClass" desc="课堂外"/>
+	
+</root>

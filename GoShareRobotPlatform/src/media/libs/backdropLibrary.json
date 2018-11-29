@@ -1,0 +1,6 @@
+[
+{"name":"atom playground","md5":"dd85f581a3ba8d590543bd6e87d6fd14.jpg","type":"backdrop","tags":["outdoors", "city", "sports"],"info":[]},
+{"name":"baseball-field", "md5": "6b3d87ba2a7f89be703163b6c1d4c964.png", "type": "backdrop", "tags": ["sports"], "info": [960, 720, 2]},
+{"name":"basketball-court1-a", "md5": "c3464cbe80c4d3adb225383d9e84b5d4.png", "type": "backdrop", "tags": ["outdoors", "city", "sports"], "info": [480, 360]},
+{"name":"basketball-court1-b", "md5": "2dbde2ae53f2744b87be09581281610f.png", "type": "backdrop", "tags": ["outdoors", "city", "sports"], "info": [480, 360]}
+]

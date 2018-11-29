@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="Scratch">
+    <configurations>
+      <configuration name="Scratch" target-platform="Desktop" pure-as="true" main-class="Scratch" output-file="Scratch.swf" output-folder="$MODULE_DIR$/bin-debug">
+        <dependencies>
+          <entries>
+            <entry library-id="70df4780-4ad0-4588-a1b4-17dab7dab240">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry module-name="GoshareConnect" build-configuration-name="GoshareConnect">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry module-name="GoshareServiceLib" build-configuration-name="GoshareServiceLib">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="AIRSDK_26" />
+        </dependencies>
+        <compiler-options>
+          <map>
+            <entry key="compiler.locale" value="en_US" />
+          </map>
+          <option name="additionalOptions" value="-define=SCRATCH::allow3d,false  -define=SCRATCH::revision,false" />
+        </compiler-options>
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Scratch-app.xml" package-file-name="GoshareEditor">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/icons" path-in-package="icons" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/media" path-in-package="media" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/UI" path-in-package="assets/UI" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/fonts" path-in-package="assets/fonts" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/blocks" path-in-package="assets/blocks" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/cursors" path-in-package="assets/cursors" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/pop.wav" path-in-package="assets/pop.wav" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/robot.sb2" path-in-package="assets/robot.sb2" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/reload.png" path-in-package="assets/reload.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/demoRun.sb2" path-in-package="assets/demoRun.sb2" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/StopArrow.png" path-in-package="assets/StopArrow.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets/VideoShare.svg" path-in-package="assets/VideoShare.svg" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/leelib/util/flvEncoder/README.TXT" path-in-package="leelib/util/flvEncoder/README.TXT" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/locale" path-in-package="locale" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/hsv.pbk" path-in-package="filters/hsv.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/kernels" path-in-package="filters/kernels" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/whirl.pbk" path-in-package="filters/whirl.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/mosaic.pbk" path-in-package="filters/mosaic.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/fisheye.pbk" path-in-package="filters/fisheye.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/filters/pixelate.pbk" path-in-package="filters/pixelate.pbk" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/render3d/shaders" path-in-package="render3d/shaders" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/soundbank/drums" path-in-package="soundbank/drums" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/soundbank/instruments" path-in-package="soundbank/instruments" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/conf" path-in-package="conf" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/newIcons" path-in-package="newIcons" />
+          </files-to-package>
+          <AirSigningOptions keystore-path="$MODULE_DIR$/../../../合肥小木软件/xiaomu.p12" />
+        </packaging-air-desktop>
+        <packaging-android />
+        <packaging-ios />
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="AIRSDK_26" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="70df4780-4ad0-4588-a1b4-17dab7dab240" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="GoshareServiceLib" exported="" />
+    <orderEntry type="module" module-name="GoshareConnect" exported="" />
+  </component>
+</module>

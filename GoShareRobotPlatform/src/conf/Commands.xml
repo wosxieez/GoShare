@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<command id="" name="increase_volume" desc="增大音量"/>
+	<command id="" name="decrease_volume" desc="增大音量"/>
+	<command id="" name="begin_to_be_in_class" desc="现在上课"/>
+	<command id="" name="begin_to_be_outside_class" desc="现在下课"/>
+	<command id="" name="begin_to_exe_courseware" desc="开始讲课"/>
+	<command id="" name="end_to_exe_courseware" desc="停止讲课"/>
+	<command id="" name="open_courseware_window" desc="显示课件"/>
+	<command id="" name="close_courseware_window" desc="关闭课件"/>
+	<command id="" name="close_face_window" desc="显示表情"/>
+	<command id="" name="open_face_window" desc="关闭表情"/>
+</root>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+	<!-- 视频服务器地址 -->
+	<Param name="FMS_SERVER" value="rtmp://192.168.1.2:9000/live" />
+	<!-- Http服务器地址 -->
+	<Param name="HTTP_SERVER" value="http://192.168.1.2:8088" />
+	<!-- 项目运行模式: 0-编辑器模式; 1-播放器模式 -->
+	<Param name="PROJECT_TYPE" value="0"/>
+	<!-- 请求统一后缀 -->
+	<Param name="JSON" value=".json"/>
+	<!-- 版本号 -->
+	<Param name="VERSION" value="V1.0.3" />
+	<!-- 系统编码 -->
+	<Param name="ENCODING" value="UTF-8"/> 
+	<!-- 是否开启调试 --> 
+	<Param name="DEBUG_MOD" value="1"/>
+	<!-- 请求超时时间 --> 
+	<Param name="TIME_OUT" value="60000"/>
+</Root>
