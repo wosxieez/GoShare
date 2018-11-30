@@ -100,6 +100,8 @@ package primitives {
 			
 			// 按理来说 应该在 当"编辑区有 whenTimeUp 的Block块存在时候再添加该监控" - 节省资源开销
 			AppRunLoopManager.getInstance().addRunLoop(whenTheTimeIsUp);
+			// 增加本堂课任课老师 - 用户自定义变量
+			setTimeout(createGlobalVarOrList, 1500, false, "本堂课任课老师");
         }
 
 		private function loadProjectComplete(b:*):void {
@@ -442,11 +444,11 @@ package primitives {
 		{
 			var obj:ScratchObj = isList? app.viewedObj() : app.stageObj();
 			if (obj.hasName(name)) {
-				DialogBox.notify("Cannot Add", "That name is already in use.");
+//				DialogBox.notify("Cannot Add", "That name is already in use.");
 				return;
 			}
 			var variable:* =  (isList? obj.lookupOrCreateList(name):obj.lookupOrCreateVar(name));
-			app.runtime.showVarOrListFor(name, isList, obj);
+			app.runtime.showVarOrListFor(name, isList, obj, false);
 			app.setSaveNeeded();
 		}
 		

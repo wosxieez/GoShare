@@ -1486,7 +1486,7 @@ package scratch {
 		app.setSaveNeeded();
 	}
 
-	public function showVarOrListFor(varName:String, isList:Boolean, targetObj:ScratchObj):void {
+	public function showVarOrListFor(varName:String, isList:Boolean, targetObj:ScratchObj, needWatcher:Boolean=true):void {
 		if (targetObj.isClone) {
 			// Clone's can't show local variables/lists (but can show global ones)
 			if (!isList && targetObj.ownsVar(varName)) return;
@@ -1497,6 +1497,9 @@ package scratch {
 		if (w != null && (!w.visible || !w.parent)) {
 			showOnStage(w);
 			app.updatePalette(false);
+			if (!needWatcher) {
+				w.visible = false;
+			}
 		}
 	}
 

@@ -827,7 +827,8 @@ package {
             removeLoadProgressBox();
             System.gc();
             // 原本应该触发"当点击'绿色小旗'时"的Block事件，现修改为触发"工程加载完毕"的Block事件
-            runtime.autoRunMainApp();
+//            runtime.autoRunMainApp();
+			runtime.startGreenFlags(true);
 //        if (autostart) runtime.startGreenFlags(true);
 
             loadInProgress = false;
