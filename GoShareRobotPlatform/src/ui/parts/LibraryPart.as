@@ -234,7 +234,7 @@ public class LibraryPart extends UIPart {
 
         spritesFrame.setWidthHeight(w-88, h - spritesFrame.y-2);
 
-        spriteDetails.setWidthHeight(spritesFrame.width, 77);
+        spriteDetails.setWidthHeight(w-88, 77);
         stageThumbnail.x = spritesFrame.x+spritesFrame.width+(88-stageThumbnail.width)/2+2;///舞台缩略图元素
 
         var bottomY : int = this.h-30;

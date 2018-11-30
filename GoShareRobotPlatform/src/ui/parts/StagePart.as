@@ -184,7 +184,7 @@ package ui.parts {
 		projectTitle.visible = app.editMode;
 		projectInfo.visible = app.editMode;
 //		stageSizeButton.visible = app.editMode;
-        stageSizeButton.visible = false; ///暂时将尺寸按钮隐藏，如果要切换尺寸的话，可以点击选择  文件->小舞台模式
+        stageSizeButton.visible = true; ///暂时将尺寸按钮隐藏，如果要切换尺寸的话，可以点击选择  文件->小舞台模式
 		turboIndicator.visible = app.interp.turboMode;
 		fullscreenButton.visible = !app.isSmallPlayer;
 		stopRecordingButton.visible = (app.runtime.ready==ReadyLabel.COUNTDOWN || app.runtime.recording) && app.editMode;

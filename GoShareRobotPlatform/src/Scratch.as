@@ -330,7 +330,7 @@ package {
         }
 
         private function stage_clickHandler(event:MouseEvent):void {
-            trace("点击事件", event.target)
+//            trace("点击事件", event.target)
         }
 
         protected function handleStartupParameters():void {

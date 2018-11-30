@@ -23,7 +23,8 @@
 // This part shows information about the currently selected object (the stage or a sprite).
 
 package ui.parts {
-import coco.component.CheckBoxOfImage;
+import com.goshare.component.CheckBoxOfImage;
+import com.goshare.component.NewEditableLab;
 
 import com.goshare.manager.AppManager;
 
@@ -45,8 +46,7 @@ import util.DragClient;
  */
 public class SpriteInfoPart extends UIPart implements DragClient {
 
-    private const readoutLabelFormat:TextFormat = new TextFormat(CSS.font, 12, 0xA6A8AB, true);
-    private const readoutFormat:TextFormat = new TextFormat(CSS.font, 12, 0xA6A8AB);
+    private const readoutLabelFormat:TextFormat = new TextFormat(CSS.font, 12, 0x333333, true);
 
     private var shape:Shape;
 
@@ -54,17 +54,15 @@ public class SpriteInfoPart extends UIPart implements DragClient {
     private var closeButton:IconButton;
     private	var thumbnail:Bitmap;
     private var spriteLab:TextField
-    private var spriteName:EditableLabel;
+    private var spriteName:NewEditableLab;
 
     private var xReadoutLabel:TextField;
     private var yReadoutLabel:TextField;
-//	private var xReadout:TextField;
-//	private var yReadout:TextField;
-    private var xReadout:EditableLabel;
-    private var yReadout:EditableLabel;
+    private var xReadout:NewEditableLab;
+    private var yReadout:NewEditableLab;
 
     private var dirLabel:TextField;
-    private var dirReadout:TextField;
+    private var dirReadout:NewEditableLab;
     private var dirWheel:Sprite;
 
     private var rotationStyleLabel:TextField;
@@ -83,7 +81,7 @@ public class SpriteInfoPart extends UIPart implements DragClient {
     private var lastSrcImg:DisplayObject;
 
     private var sizeOfSpriteLab:TextField
-    private var sizeOfSprite:EditableLabel;///控制舞台上的元素大小
+    private var sizeOfSprite:NewEditableLab;///控制舞台上的元素大小
 
     private var paintButton:IconButton;///绘画按钮
     private var libraryButton:IconButton;///人物元素文件库按钮
@@ -170,25 +168,50 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         }else{
             allowTheseComponent();
         }
-        spriteName.setContents(app.viewedObj().objName);///设置人物元素的名称
+        spriteName.text = app.viewedObj().objName;///设置人物元素的名称
         updateSpriteInfo();///更新人物元素信息
         if (app.stageIsContracted) layoutCompact();///如果是缩略图的情况
         else layoutFullsize();///普通模式下，填满
     }
 
     private function allowTheseComponent():void {
-        xReadout.setEditable(true);
-        yReadout.setEditable(true);
-        sizeOfSprite.setEditable(true)
+        xReadout.editable = true;
+        xReadout.recoverDataHandler();
+        xReadout.clearResData();
+
+        yReadout.editable = true;
+        yReadout.recoverDataHandler();
+        yReadout.clearResData();
+
+        sizeOfSprite.editable = true;
+        sizeOfSprite.recoverDataHandler();
+        sizeOfSprite.clearResData();
+
+        dirReadout.recoverDataHandler();
+        dirReadout.clearResData();
+
         showSpriteButton1.addEventListener(MouseEvent.CLICK,clickshowSpriteButtonHandler);
         showSpriteButton2.addEventListener(MouseEvent.CLICK,clickshowSpriteButtonHandler);
         showSpriteButton1.buttonMode = showSpriteButton2.buttonMode = true;
     }
 
     private function forbidenSomeComponent():void {
-        xReadout.setEditable(false);
-        yReadout.setEditable(false);
-        sizeOfSprite.setEditable(false)
+        xReadout.editable = false;
+        xReadout.storageDataHandler();
+        xReadout.text = '';
+
+        yReadout.editable = false;
+        yReadout.storageDataHandler();
+        yReadout.text = '';
+
+        sizeOfSprite.editable = false;
+        sizeOfSprite.storageDataHandler();
+        sizeOfSprite.text = '';
+
+        dirReadout.editable = false;
+        dirReadout.storageDataHandler();
+        dirReadout.text = '';
+
         showSpriteButton1.removeEventListener(MouseEvent.CLICK,clickshowSpriteButtonHandler);
         showSpriteButton2.removeEventListener(MouseEvent.CLICK,clickshowSpriteButtonHandler);
         showSpriteButton1.selected = showSpriteButton2.selected = false;
@@ -200,23 +223,36 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         closeButton.isMomentary = true;
 
         addChild(spriteLab = makeLabel('', readoutLabelFormat));
-        addChild(spriteName = new EditableLabel(nameChanged));
-        spriteName.setWidth(80);
+        spriteName = new NewEditableLab();
+        spriteName.addEventListener(FocusEvent.FOCUS_OUT,spriteName_focusOutHandler)
+        addChild(spriteName)
 
 //		addChild(thumbnail = new Bitmap());
 
         addChild(xReadoutLabel = makeLabel('x:', readoutLabelFormat));
-//		addChild(xReadout = makeLabel('-888', readoutFormat));
-        addChild(xReadout = new EditableLabel(XYChanged));
+        xReadout = new NewEditableLab();
+        xReadout.addEventListener(FocusEvent.FOCUS_OUT,xyReadout_focusOutHandler)
+        addChild(xReadout)
 
         addChild(yReadoutLabel = makeLabel('y:', readoutLabelFormat));
-//		addChild(yReadout = makeLabel('-888', readoutFormat));
-        addChild(yReadout = new EditableLabel(XYChanged));
+        yReadout = new NewEditableLab();
+        yReadout.addEventListener(FocusEvent.FOCUS_OUT,xyReadout_focusOutHandler)
+        addChild(yReadout)
 
+        ///添加缩放功能输入框
+        addChild(sizeOfSpriteLab = makeLabel('', readoutLabelFormat));
+        sizeOfSprite = new NewEditableLab();
+        sizeOfSprite.addEventListener(FocusEvent.FOCUS_OUT,sizeOfSprite_focusOutHandler)
+        addChild(sizeOfSprite)
+
+        ///旋转度数
         addChild(dirLabel = makeLabel('', readoutLabelFormat));
         addChild(dirWheel = new Sprite());
         dirWheel.addEventListener(MouseEvent.MOUSE_DOWN, dirMouseDown);
-        addChild(dirReadout = makeLabel('-179', readoutFormat));
+        dirReadout = new NewEditableLab();
+        dirReadout.editable = false;
+        addChild(dirReadout)
+
 
         addChild(rotationStyleLabel = makeLabel('', readoutLabelFormat));
         rotationStyleButtons = [
@@ -231,9 +267,6 @@ public class SpriteInfoPart extends UIPart implements DragClient {
 
         addChild(showSpriteLabel = makeLabel('', readoutLabelFormat));
 
-        ///添加缩放功能输入框
-        addChild(sizeOfSpriteLab = makeLabel('', readoutLabelFormat));
-        addChild(sizeOfSprite = new EditableLabel(sizeOfSpriteChanged));
 
         showSpriteButton1 = new CheckBoxOfImage();
         showSpriteButton1.statusSrc = ["assets/UI/newIconForScratch/showSpriteBtn/visibleOFF.png",
@@ -254,6 +287,18 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         addChild(showSpriteButton2);
     }
 
+    private function spriteName_focusOutHandler(event:FocusEvent):void {
+        nameChanged();
+    }
+
+    private function sizeOfSprite_focusOutHandler(event:FocusEvent):void {
+        sizeOfSpriteChanged();
+    }
+
+    private function xyReadout_focusOutHandler(event:FocusEvent):void {
+        XYChanged();
+    }
+
     private function clickshowSpriteButtonHandler(event:MouseEvent):void {
         if(!event.currentTarget.selected){
             showSpriteButton1.selected = !showSpriteButton1.selected;
@@ -268,8 +313,8 @@ public class SpriteInfoPart extends UIPart implements DragClient {
     }
 
     private function sizeOfSpriteChanged():void {
-        if(spr){
-            spr.setSize(parseInt(sizeOfSprite.contents()));
+        if(spr&&sizeOfSprite.text&&parseInt(sizeOfSprite.text)>0){
+            spr.setSize(parseInt(sizeOfSprite.text));
         }
     }
 
@@ -280,7 +325,7 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         dirLabel.visible = true;
         rotationStyleLabel.visible = false;
         rotationStyleButtons[0].visible = rotationStyleButtons[1].visible = rotationStyleButtons[2].visible = false;
-        dirWheel.visible = true;
+        dirWheel.visible = !app.viewedObj().isStage;
         dirReadout.visible = true
         sizeOfSpriteLab.visible = true;
         sizeOfSprite.visible = true;
@@ -290,27 +335,33 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         closeButton.y = 5;
         closeButton.visible = false;
 
-//		thumbnail.x = 40;
-//		thumbnail.y = 8;
-
         var left:int = 15;
         var top:int = 12;
 
         xReadoutLabel.x = left;
         xReadoutLabel.y = top;
-        xReadout.setWidth(40,15)
+        xReadout.width = 40;
+        xReadout.height = 20;
+        xReadout.radius = 10;
+        xReadout.fontSize = 10;
         xReadout.x = xReadoutLabel.x +xReadoutLabel.textWidth+ 10;
         xReadout.y = top;
 
         yReadoutLabel.x = xReadout.x + xReadout.width+ 15;
         yReadoutLabel.y = top;
-        yReadout.setWidth(40,15)
+        yReadout.width = 40;
+        yReadout.height = 20;
+        yReadout.radius = 10;
+        yReadout.fontSize = 10;
         yReadout.x = yReadoutLabel.x +yReadoutLabel.textWidth+ 10;
         yReadout.y = top;
 
         sizeOfSpriteLab.x = yReadout.x+yReadout.width+10
         sizeOfSpriteLab.y = top;
-        sizeOfSprite.setWidth(40,15)
+        sizeOfSprite.width = 40;
+        sizeOfSprite.height = 20;
+        sizeOfSprite.radius = 10;
+        sizeOfSprite.fontSize = 10;
         sizeOfSprite.x = sizeOfSpriteLab.x+sizeOfSpriteLab.textWidth+10;
         sizeOfSprite.y = top;
 
@@ -319,9 +370,14 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         ///方向标签
         dirLabel.x = sizeOfSprite.x+sizeOfSprite.width+10;
         dirLabel.y = top;
-        dirReadout.x = dirLabel.x+dirLabel.textWidth+10;
+
+        dirReadout.width = 40;
+        dirReadout.height = 20;
+        dirReadout.fontSize = 10;
+        dirReadout.radius = 10;
+        dirReadout.x = dirLabel.x+dirLabel.textWidth;
         dirReadout.y = dirLabel.y;
-        dirWheel.x = dirReadout.x+dirReadout.textWidth+40;///方向转盘
+        dirWheel.x = dirReadout.x+dirReadout.width+40;///方向转盘
         dirWheel.y = top+10;
 
         ///旋转模式
@@ -347,7 +403,10 @@ public class SpriteInfoPart extends UIPart implements DragClient {
 
         spriteLab.x = left
         spriteLab.y = xReadout.y+xReadout.height+10
-        spriteName.setWidth(60,15);
+        spriteName.width = 60;
+        spriteName.height = 20;
+        spriteName.radius = 10;
+        spriteName.fontSize = 10;
         spriteName.x = spriteLab.x+spriteLab.textWidth+10;
         spriteName.y = xReadout.y+xReadout.height+10;
 
@@ -394,56 +453,6 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         yReadoutLabel.y = xReadoutLabel.y;
         yReadout.x = yReadoutLabel.x+yReadoutLabel.textWidth+10;
         yReadout.y = yReadoutLabel.y;
-//        dirLabel.visible = false;
-//        rotationStyleLabel.visible = false;
-
-//        closeButton.x = 5;
-//        closeButton.y = 5;
-//        closeButton.visible = false;
-
-//        spriteName.setWidth(80);
-//        spriteName.x = 28;
-//        spriteName.y = 5;
-
-//        var left:int = 6;
-
-//		thumbnail.x = ((w - thumbnail.width) / 2) + 3;
-//		thumbnail.y = spriteName.y + spriteName.height + 10;
-
-//        var nextY:int = 125;
-//        xReadoutLabel.x = left;
-//        xReadoutLabel.y = nextY;
-//        xReadout.x = left + 15;
-//        xReadout.y = nextY;
-
-//        yReadoutLabel.x = left + 47;
-//        yReadoutLabel.y = nextY;
-//        yReadout.x = yReadoutLabel.x + 15;
-//        yReadout.y = nextY;
-
-        // right aligned
-//        dirWheel.x = w - 18;
-//        dirWheel.y = nextY + 8;
-//        dirReadout.x = dirWheel.x - 47;
-//        dirReadout.y = nextY;
-
-//        nextY += 22;
-//        rotationStyleButtons[0].x = left;
-//        rotationStyleButtons[1].x = left + 33;
-//        rotationStyleButtons[2].x = left + 64;
-//        rotationStyleButtons[0].y = rotationStyleButtons[1].y = rotationStyleButtons[2].y = nextY;
-
-//        nextY += 22;
-//        draggableLabel.x = left;
-//        draggableLabel.y = nextY;
-//        draggableButton.x = draggableLabel.x + draggableLabel.textWidth + 10;
-//        draggableButton.y = nextY + 4;
-
-//		nextY += 22;
-//        showSpriteLabel.x = spriteName.x+spriteName.width+6;
-//        showSpriteLabel.y = spriteName.y;
-//        showSpriteButton.x = showSpriteLabel.x + showSpriteLabel.textWidth + 10;
-//        showSpriteButton.y = showSpriteLabel.y;
     }
 
     private function closeSpriteInfo(ignore:*):void {
@@ -502,11 +511,11 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         if (spr == null) return;
 //		updateThumbnail();
         if (spr.scratchX != lastX) {
-            xReadout.setContents(String(Math.round(spr.scratchX)));
+            xReadout.text = String(Math.round(spr.scratchX));
             lastX = spr.scratchX;
         }
         if (spr.scratchY != lastY) {
-            yReadout.setContents(String(Math.round(spr.scratchY)));
+            yReadout.text = String(Math.round(spr.scratchY));
             lastY = spr.scratchY;
         }
         if (spr.direction != lastDirection) {
@@ -525,7 +534,7 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         showSpriteButton2.selected = !spr.visible;
 
         if(spr.getSize()!=lastSizeOfSprite){
-            sizeOfSprite.setContents(spr.getSize()+"")
+            sizeOfSprite.text = spr.getSize()+""
             lastSizeOfSprite = spr.getSize()+"";
         }
 //
@@ -557,13 +566,13 @@ public class SpriteInfoPart extends UIPart implements DragClient {
     }
 
     private function nameChanged():void {
-        app.runtime.renameSprite(spriteName.contents());
-        spriteName.setContents(app.viewedObj().objName);
+        app.runtime.renameSprite(spriteName.text);
+        spriteName.text = app.viewedObj().objName;
     }
 
     private function XYChanged():void {
-        if(spr&&xReadout.contents()&&yReadout.contents()){
-            spr.setScratchXY(parseInt(xReadout.contents()),parseInt(yReadout.contents()))
+        if(spr&&xReadout.text&&yReadout.text){
+            spr.setScratchXY(parseInt(xReadout.text),parseInt(yReadout.text))
         }
     }
 
