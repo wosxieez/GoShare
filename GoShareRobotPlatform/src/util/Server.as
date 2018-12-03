@@ -28,7 +28,9 @@
 package util {
 import by.blooddy.crypto.serialization.JSON;
 
-import flash.display.BitmapData;
+    import com.goshare.manager.AppDataManager;
+
+    import flash.display.BitmapData;
 import flash.display.Loader;
 import flash.events.ErrorEvent;
 import flash.events.Event;
@@ -334,18 +336,17 @@ public class Server implements IServer {
 		serverGet('locale/' + lang + '.po', whenDone);
 	}
 
-	public function getSelectedLang(whenDone:Function):void {
-		// Get the language setting.
-		var sharedObj:SharedObject = SharedObject.getLocal('Scratch');
-		if (sharedObj.data.lang) whenDone(sharedObj.data.lang);
+	public function getSelectedLang(): String {
+        var lang: String = AppDataManager.getShareObjectValue('lang')
+        if (lang && lang.length > 0) {
+            return lang
+        } else {
+            return 'zh_CN'
+        }
 	}
 
 	public function setSelectedLang(lang:String):void {
-		// Record the language setting.
-		var sharedObj:SharedObject = SharedObject.getLocal('Scratch');
-		if (lang == '') lang = 'zh-cn';
-		sharedObj.data.lang = lang;
-		sharedObj.flush();
+		AppDataManager.setShareObjectValue('lang', lang)
 	}
 }
 }

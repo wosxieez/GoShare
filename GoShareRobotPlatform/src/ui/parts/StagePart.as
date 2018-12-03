@@ -635,10 +635,9 @@ package ui.parts {
      *  增加快捷键操作提示
      * */
     private function addShortcutsKeyTips(): void {
-        if (!SharedObject.getLocal("goshare").data.shortcutsTipsIsDone) {
+        if (AppDataManager.getShareObjectValue('shortcutsTipsIsDone') != 'true') {
             AppAlert.show('Esc: 退出全屏模式\r空格键: 开始/暂停', '快捷键提示').textAlign = TextAlign.LEFT
-            SharedObject.getLocal("goshare").data.shortcutsTipsIsDone = true
-            SharedObject.getLocal("goshare").flush()
+            AppDataManager.setShareObjectValue('shortcutsTipsIsDone', 'true')
         }
     }
 

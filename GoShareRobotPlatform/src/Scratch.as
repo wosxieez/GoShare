@@ -255,8 +255,7 @@ package {
             playerBG = new Shape(); // create, but don't add
             addParts();
 
-            server.getSelectedLang(Translator.setLanguageValue);
-
+            Translator.setLanguageValue(server.getSelectedLang())
 
             stage.addEventListener(MouseEvent.MOUSE_DOWN, gh.mouseDown);
             stage.addEventListener(MouseEvent.MOUSE_MOVE, gh.mouseMove);

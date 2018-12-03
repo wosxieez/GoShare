@@ -41,6 +41,6 @@ public interface IServer {
 	//------------------------------
 	function getLanguageList(callback:Function):void;
 	function getPOFile(lang:String, callback:Function):void;
-	function getSelectedLang(callback:Function):void;
+	function getSelectedLang(): String;
 	function setSelectedLang(lang:String):void;
 }}

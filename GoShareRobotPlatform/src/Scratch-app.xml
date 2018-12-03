@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/26.0">
+<application xmlns="http://ns.adobe.com/air/application/29.0">
 
     <id>com.goshare.editor</id>
     <filename>智能课件编辑大师</filename>
     <name>智能课件编辑大师</name>
-    <versionNumber>1.0.1</versionNumber>
-    <versionLabel>V1.0.1</versionLabel>
+    <versionNumber>1.0.2</versionNumber>
+    <versionLabel>V1.0.2</versionLabel>
     <initialWindow>
         <content>[This value will be overwritten by Flash Builder in the output app.xml]</content>
         <systemChrome>none</systemChrome>
