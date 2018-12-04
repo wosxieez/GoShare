@@ -233,9 +233,12 @@ public class LibraryPart extends UIPart {
         stageThumbnail.y = 30 + 2;
 
         spritesFrame.setWidthHeight(w-88, h - spritesFrame.y-2);
+        trace("宽度：",spritesFrame.width);
 
         spriteDetails.setWidthHeight(w-88, 77);
-        stageThumbnail.x = spritesFrame.x+spritesFrame.width+(88-stageThumbnail.width)/2+2;///舞台缩略图元素
+        trace("w",w);
+        trace("stageThumbnail.width",stageThumbnail.width);
+        stageThumbnail.x = w-88+(88-stageThumbnail.width)/2+3;///舞台缩略图元素
 
         backdropPaintButton.width = 10;
         backdropPaintButton.height = 15;
@@ -255,7 +258,7 @@ public class LibraryPart extends UIPart {
         backdropImportButton.y = bottomY + 2;
         backdropCameraButton.x = backdropImportButton.right() + 8;
         backdropCameraButton.y = bottomY + 3;
-        backdropTitle.x = spritesFrame.x+spritesFrame.width+(w-(spritesFrame.x+spritesFrame.width)-backdropTitle.textWidth)/2;
+        backdropTitle.x = w-88+(88-backdropTitle.textWidth)/2;
     }
 
     /**
@@ -313,7 +316,9 @@ public class LibraryPart extends UIPart {
                 nextY += tn.height+6;
             }
         }
+        trace("spritesFrame.width",spritesFrame.width);
         spritesPane.updateSize();///添加完元素后，元素板要更新尺寸
+        trace("spritesPane的宽高：",spritesPane.width,spritesPane.height)
         scrollToSelectedSprite();///滚动到选中的元素
         step();
     }
