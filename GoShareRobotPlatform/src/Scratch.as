@@ -1076,7 +1076,7 @@ package {
                 return;
             }
             libraryPart.x = stagePart.x;
-            libraryPart.y = stagePart.bottom() + 18;
+            libraryPart.y = stagePart.bottom() + 5;
             libraryPart.setWidthHeight(stagePart.w, h - libraryPart.y - 5);
 
             /// 设置TabsPart的位置

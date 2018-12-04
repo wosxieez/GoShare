@@ -541,7 +541,7 @@ public class SpriteInfoPart extends UIPart implements DragClient {
         showSpriteButton1.selected = spr.visible;
         showSpriteButton2.selected = !spr.visible;
 
-        if(spr.getSize()!=lastSizeOfSprite){
+        if(spr.getSize()!=parseInt(lastSizeOfSprite)){
             sizeOfSprite.text = spr.getSize()+""
             lastSizeOfSprite = spr.getSize()+"";
         }

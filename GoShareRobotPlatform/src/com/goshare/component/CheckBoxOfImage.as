@@ -43,6 +43,18 @@ public class CheckBoxOfImage extends UIComponent{
         invalidateProperties();
     }
 
+    private var _drawBord:Boolean = true;
+
+    public function get drawBord():Boolean {
+        return _drawBord;
+    }
+
+    public function set drawBord(value:Boolean):void {
+        _drawBord = value;
+        invalidateDisplayList();
+        invalidateSkin();
+    }
+
     override protected function createChildren():void
     {
         super.createChildren();
@@ -66,10 +78,18 @@ public class CheckBoxOfImage extends UIComponent{
     {
         super.updateDisplayList();
 
-        img.width = width*0.6;
-        img.height = height*0.6;
-        img.x = (width-img.width)/2;
-        img.y = (height-img.height)/2;
+        if(drawBord){
+            img.width = width*0.6;
+            img.height = height*0.6;
+            img.x = (width-img.width)/2;
+            img.y = (height-img.height)/2;
+        }else{
+            img.width = width;
+            img.height = height;
+            img.x = (width-img.width)/2;
+            img.y = (height-img.height)/2;
+        }
+
     }
 
     override protected function measure():void
@@ -84,10 +104,15 @@ public class CheckBoxOfImage extends UIComponent{
     {
         super.drawSkin();
 
-        graphics.clear();
-        graphics.beginFill(0xFFFFFF);
-        graphics.drawRoundRect(0,0,width,height,10,10);
-        graphics.endFill();
+        if(drawBord){
+            graphics.clear();
+            graphics.beginFill(0xFFFFFF);
+            graphics.drawRoundRect(0,0,width,height,10,10);
+            graphics.endFill();
+        }
+
     }
+
+
 }
 }
