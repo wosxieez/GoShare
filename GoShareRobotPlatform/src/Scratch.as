@@ -1050,7 +1050,8 @@ package {
                 } else {
                     stagePart.setWidthHeight(480, 360, 1);
                 }
-                stagePart.x = w - stagePart.width
+                stagePart.x = w - (stagePart.width-5)
+                trace(" stagePart.x = w - stagePart.width",w,stagePart.width);
                 stagePart.y = isMicroworld ? 5 : topBarPart.bottom() + 36;
                 stagePart.scaleY = stagePart.scaleX = 1
                 fixLoadProgressLayout();
@@ -1082,14 +1083,14 @@ package {
             /// 设置TabsPart的位置
             tabsPart.x = 5;
             if (!isMicroworld) {
-                tabsPart.y = topBarPart.bottom() + 7;
+                tabsPart.y = topBarPart.bottom() + 5;
                 tabsPart.fixLayout();
             }
             else
                 tabsPart.visible = false;
 
             // the content area shows the part associated with the currently selected tab:
-            var contentY:int = tabsPart.y + 29;
+            var contentY:int = tabsPart.y + 30;
             updateContentArea(tabsPart.x, contentY, stagePart.x - tabsPart.x - 5, h - contentY - 5, h);
         }
 

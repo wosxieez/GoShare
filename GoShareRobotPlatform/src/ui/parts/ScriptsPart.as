@@ -37,7 +37,7 @@ import util.CachedTimer;
 public class ScriptsPart extends UIPart {
 
 	private var shape:Shape;
-	private var selector:PaletteSelector;
+	private var selector:PaletteSelector;///画板选择，选择的元素（最左侧动作，事件，goshare等等）
 	private var spriteWatermark:Bitmap;
 	protected var paletteFrame:ScrollFrame;
 	protected var scriptsFrame:ScrollFrame;
@@ -62,8 +62,8 @@ public class ScriptsPart extends UIPart {
 		addXYDisplay();
 		addChild(selector = new PaletteSelector(app));
 
-		var palette:BlockPalette = new BlockPalette();
-		palette.backgroundColor = 0xF9F9F9;
+		var palette:BlockPalette = new BlockPalette();///实际的各种实际的block块候选区
+		palette.backgroundColor = 0xFFFFFF;
 		paletteFrame = new ScrollFrame();
 		paletteFrame.allowHorizontalScrollbar = false;
 		paletteFrame.setContents(palette);
@@ -148,14 +148,14 @@ public class ScriptsPart extends UIPart {
 
 	private function fixlayout():void {
 		if (!app.isMicroworld) {
-			selector.x = 0;
-			selector.y = 0;
+			selector.x = 10;
+			selector.y = 1;
 
-			paletteFrame.x = 50
+			paletteFrame.x = 70
 			paletteFrame.y = 0
-			paletteFrame.setWidthHeight(250, h);
+			paletteFrame.setWidthHeight(235, h);
 
-			scriptsFrame.x = 301
+			scriptsFrame.x = 305+1///block拼装区
 			scriptsFrame.y = 0
 
 			zoomWidget.x = w - zoomWidget.width - 15;
@@ -184,7 +184,8 @@ public class ScriptsPart extends UIPart {
 
 		var g:Graphics = shape.graphics;
 		g.clear();
-		g.lineStyle(1, CSS.borderColor, 1, true);
+//		g.lineStyle(1, CSS.borderColor, 1, true);
+        g.lineStyle(1, 0xaac8fe, 1, true);
 		g.beginFill(0xFFFFFF);
 		g.drawRect(0, 0, w, h);
 		g.endFill();
@@ -192,11 +193,12 @@ public class ScriptsPart extends UIPart {
 		var darkerBorder:int = CSS.borderColor - 0x141414;
 		var lighterBorder:int = 0xF2F2F2;
 		if (!app.isMicroworld) {
-			g.lineStyle(1, darkerBorder, 1, true);
-            g.moveTo(50, 0)
-            g.lineTo(50, h)
-            g.moveTo(300, 0)
-            g.lineTo(300, h)
+//			g.lineStyle(1, darkerBorder, 1, true);
+            g.lineStyle(1, 0xaac8fe, 1, true);
+            g.moveTo(70, 0)
+            g.lineTo(70, h)
+            g.moveTo(305, 0)
+            g.lineTo(305, h)
 		}
 	}
 
