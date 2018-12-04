@@ -216,7 +216,7 @@ package com.goshare.manager
 		/**
 		 * 写入配置信息到flash缓存中
 		 */
-		private static function setShareObjectValue(key:String, value:String):void
+		public static function setShareObjectValue(key:String, value:String):void
 		{
 			SharedObject.getLocal("goshareEduRobot").data[key] = value;
 			SharedObject.getLocal("goshareEduRobot").flush();
@@ -225,7 +225,7 @@ package com.goshare.manager
 		/**
 		 * 从flash缓存中读取配置信息
 		 */
-		private static function getShareObjectValue(key:String):String
+        public static function getShareObjectValue(key:String):String
 		{
 			if (SharedObject.getLocal("goshareEduRobot").data[key] != undefined) {
 				return SharedObject.getLocal("goshareEduRobot").data[key];
@@ -234,24 +234,6 @@ package com.goshare.manager
 			}
 		}
 		
-		/**
-		 * 存放全局数据 - 非缓存
-		 */ 
-		private static var _pubProperty_data:Object = new Object;
-		
-		/**
-		 * 获取公用属性
-		 */ 
-		public static function getPubProperty(name:String):Object{
-			return _pubProperty_data[name]
-		}
-		
-		/**
-		 * 设置公用属性
-		 */ 
-		public static function setPubProperty(key:String,value:Object):void{
-			_pubProperty_data[key] = value;
-		}
 		// ------------------------------------------ tool  function end ---------------------------------
 		
 		/**

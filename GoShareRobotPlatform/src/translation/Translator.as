@@ -60,7 +60,7 @@ public class Translator {
 			}
 			else {
 				// Use English as fallback if we can't get the language list
-				newLanguages.push(['en', 'English']);
+				newLanguages.push(['zh_CN', '简体中文']);
 			}
 			languages = newLanguages;
 		}
