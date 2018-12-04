@@ -320,6 +320,14 @@ public class SpriteInfoPart extends UIPart implements DragClient {
 
     private function layoutFullsize():void {
 
+        paintButton.width = 10;
+        paintButton.height = 15;
+        photoButton.width = 14;
+        photoButton.height = 13;
+        importButton.width = 15;
+        importButton.height = 13;
+        libraryButton.width = 14;
+        libraryButton.height = 12;
         libraryButton.visible = paintButton.visible = importButton.visible = photoButton.visible = true;
         spriteLab.visible = true;
         dirLabel.visible = true;

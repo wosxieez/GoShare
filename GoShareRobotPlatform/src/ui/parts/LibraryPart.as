@@ -237,13 +237,22 @@ public class LibraryPart extends UIPart {
         spriteDetails.setWidthHeight(w-88, 77);
         stageThumbnail.x = spritesFrame.x+spritesFrame.width+(88-stageThumbnail.width)/2+2;///舞台缩略图元素
 
+        backdropPaintButton.width = 10;
+        backdropPaintButton.height = 15;
+        backdropCameraButton.width = 14;
+        backdropCameraButton.height = 13;
+        backdropImportButton.width = 15;
+        backdropImportButton.height = 13;
+        backdropLibraryButton.width = 14;
+        backdropLibraryButton.height = 12;
+
         var bottomY : int = this.h-30;
-        backdropLibraryButton.x = stageThumbnail.x;
+        backdropLibraryButton.x = stageThumbnail.x-1;
         backdropLibraryButton.y = bottomY + 3;
         backdropPaintButton.x = backdropLibraryButton.right() + 8;
         backdropPaintButton.y = bottomY + 1;
         backdropImportButton.x = backdropPaintButton.right() + 8;
-        backdropImportButton.y = bottomY + 0;
+        backdropImportButton.y = bottomY + 2;
         backdropCameraButton.x = backdropImportButton.right() + 8;
         backdropCameraButton.y = bottomY + 3;
         backdropTitle.x = spritesFrame.x+spritesFrame.width+(w-(spritesFrame.x+spritesFrame.width)-backdropTitle.textWidth)/2;

@@ -55,7 +55,7 @@ public class ScriptsPane extends ScrollFrameContents {
 		this.app = app;
 		addChild(commentLines = new Shape());
 		hExtra = vExtra = 40;
-        backgroundColor = 0xF9F9F9
+        backgroundColor = 0xffffff;
 //		createTexture();  /// 哥学定制 不创建texture的背景
 		addFeedbackShape();
 	}

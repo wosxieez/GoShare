@@ -177,8 +177,10 @@ public class SoundsPart extends UIPart {
 		var buttonY:int = 31;
 		addChild(libraryButton = makeButton(soundFromLibrary, 'soundlibrary', left, buttonY));
 		addChild(recordButton = makeButton(recordSound, 'record', left + 34, buttonY));
-		addChild(importButton = makeButton(soundFromComputer, 'import', left + 61, buttonY - 1));
-	}
+        addChild(importButton = makeButton(soundFromComputer, 'import', left + 61, buttonY + 1));
+        importButton.width = 18;
+        importButton.height = 16;
+    }
 
 	private function makeButton(fcn:Function, iconName:String, x:int, y:int):IconButton {
 		var b:IconButton = new IconButton(fcn, iconName);

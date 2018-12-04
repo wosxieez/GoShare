@@ -71,9 +71,9 @@ public class TabsPart extends UIPart {
     public function fixLayout():void {
         scriptsTab.x = 0;
         scriptsTab.y = 0;
-        imagesTab.x = scriptsTab.x + scriptsTab.width + 1;
+        imagesTab.x = scriptsTab.x + scriptsTab.width - 1;
         imagesTab.y = 0;
-        soundsTab.x = imagesTab.x + imagesTab.width + 1;
+        soundsTab.x = imagesTab.x + imagesTab.width - 1;
         soundsTab.y = 0;
         this.w = soundsTab.x + soundsTab.width;
         this.h = scriptsTab.height;

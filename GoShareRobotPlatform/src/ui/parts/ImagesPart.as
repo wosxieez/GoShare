@@ -231,9 +231,19 @@ public class ImagesPart extends UIPart {
 		addChild(backdropLibraryButton = makeButton(costumeFromLibrary, 'landscape', left, buttonY + 1));
 		addChild(costumeLibraryButton = makeButton(costumeFromLibrary, 'library', left + 1, buttonY - 2));
 		addChild(paintButton = makeButton(paintCostume, 'paintbrush', left + 23, buttonY - 1));
-		addChild(importButton = makeButton(costumeFromComputer, 'import', left + 44, buttonY - 2));
+		addChild(importButton = makeButton(costumeFromComputer, 'import', left + 44, buttonY));
 		addChild(cameraButton = makeButton(costumeFromCamera, 'camera', left + 72, buttonY));
-	}
+
+        paintButton.width = 10;
+        paintButton.height = 15;
+        cameraButton.width = 14;
+        cameraButton.height = 13;
+        importButton.width = 15;
+        importButton.height = 13;
+        backdropLibraryButton.width = 14;
+        backdropLibraryButton.height = 12;
+
+    }
 
 	public function useBitmapEditor(flag:Boolean):void {
 		// Switch editors based on flag. Do nothing if editor is already of the correct type.
