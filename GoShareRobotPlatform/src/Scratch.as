@@ -125,10 +125,8 @@ package {
 
     import watchers.ListWatcher;
 
-    [SWF(width="1366", height="768")]
     public class Scratch extends Application {
         // Version
-        public static const versionString:String = 'V1.0.0';
         public static var app:Scratch; // static reference to the app, used for debugging
 
         // Display modes
@@ -827,7 +825,7 @@ package {
             System.gc();
             // 原本应该触发"当点击'绿色小旗'时"的Block事件，现修改为触发"工程加载完毕"的Block事件
 //            runtime.autoRunMainApp();
-			runtime.startGreenFlags(true);
+            runtime.startGreenFlags(true);
 //        if (autostart) runtime.startGreenFlags(true);
 
             loadInProgress = false;
@@ -1259,14 +1257,6 @@ package {
 
         protected function canExportInternals():Boolean {
             return false;
-        }
-
-        private function showAboutDialog():void {
-            DialogBox.notify(
-                    'Scratch 2.0 ' + versionString,
-                    '\n\nCopyright © 2012 MIT Media Laboratory' +
-                    '\nAll rights reserved.' +
-                    '\n\nPlease do not distribute!', stage);
         }
 
         protected function onNewProject():void {}
@@ -1711,6 +1701,16 @@ package {
         }
 
         private function this_addedToStageHandler(event:Event):void {
+            if (ScreenUtil.screenWidth <= 1366) {
+                stage.nativeWindow.width = ScreenUtil.screenWidth
+            } else {
+                stage.nativeWindow.width = 1366
+            }
+            if (ScreenUtil.screenHeight <= 768) {
+                stage.nativeWindow.height = ScreenUtil.screenHeight
+            } else {
+                stage.nativeWindow.height = 768
+            }
             ScreenUtil.moveToScreenCenter(stage.nativeWindow)
         }
     }

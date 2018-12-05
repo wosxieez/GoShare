@@ -395,7 +395,7 @@ public class StagePart extends UIPart {
         addChild(projectInfo = makeLabel('', CSS.projectInfoFormat));
 
         const versionFormat:TextFormat = new TextFormat(CSS.font, 9, 0x909090);
-        addChild(versionInfo = makeLabel(Scratch.versionString, versionFormat));
+        addChild(versionInfo = makeLabel('', versionFormat));
     }
 
     protected function getProjectTitle(fmt:TextFormat):EditableLabel {

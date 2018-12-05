@@ -2,16 +2,13 @@
 <application xmlns="http://ns.adobe.com/air/application/29.0">
 
     <id>com.goshare.editor</id>
-    <filename>智能课件编辑大师</filename>
-    <name>智能课件编辑大师</name>
-    <versionNumber>1.0.2</versionNumber>
-    <versionLabel>V1.0.2</versionLabel>
+    <filename>智能课件大师</filename>
+    <name>智能课件大师</name>
+    <versionNumber>2.0.0</versionNumber>
+    <versionLabel>V2.0.0</versionLabel>
     <initialWindow>
         <content>[This value will be overwritten by Flash Builder in the output app.xml]</content>
         <systemChrome>none</systemChrome>
-        <minSize>1100 700</minSize>
-        <width>1366</width>
-        <height>768</height>
         <requestedDisplayResolution>high</requestedDisplayResolution>
         <autoOrients>false</autoOrients>
         <fullScreen>false</fullScreen>
