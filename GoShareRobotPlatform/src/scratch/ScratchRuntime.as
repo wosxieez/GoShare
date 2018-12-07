@@ -111,9 +111,15 @@ package scratch {
 
 	// Goshare Define
 	public var waitPeopleAnswer:Boolean;
+	public var peopleAnswerIsTimeout:Boolean;
+	private var peopleAnswerTimeoutUint:uint;
 	public var lastPeopleAnswer:String = ''; // goshare ' robot ask and wait ' block  need
+	
 	public var waitFollowUpAnswer:Boolean;
+	public var followUpIsTimeout:Boolean;
+	private var followUpTimeoutUint:uint;
 	public var followUpAnswer:String='';
+	
 	public var lastPeopleSaid:String = '';
 	public var lastRobotSaid:String = '';
 	public var currentFaceInfo:Object; // current faceInfo in front of robot
@@ -1002,59 +1008,99 @@ package scratch {
 	// -----------------------------
 	// Robot Ask prompter
 	//------------------------------
-	public function robotAskQuestion(question:String = ''):void {
+	public function robotAskQuestion(question:String = '', timeoutNum:int=10000):void {
 		var obj:ScratchObj = interp.targetObj();
 		if (interp.activeThread.firstTime) {
 			GpipService.getInstance().tts(question);
 			
 			waitPeopleAnswer = true;
+			peopleAnswerIsTimeout = false;
 			interp.robotAskThread = interp.activeThread;
 			interp.activeThread.firstTime = false;
 			interp.doYield();
+			
+			// 超时计算
+			peopleAnswerTimeoutUint = setTimeout(peopleAnswerTimeout, timeoutNum);
 		} else {
 			interp.activeThread.firstTime = true;
 		}
 	}
 
 	public function hideRobotAskPrompt(answerText:String):void {
+		clearTimeout(peopleAnswerTimeoutUint);
 		waitPeopleAnswer = false;
+		peopleAnswerIsTimeout = false;
 		lastPeopleAnswer = answerText;
 		interp.robotAskThread = null;
 	}
 
 	public function clearRobotAskPrompts():void {
+		clearTimeout(peopleAnswerTimeoutUint);
 		waitPeopleAnswer = false;
+		peopleAnswerIsTimeout = false;
 		interp.robotAskThread = null;
 	}
 	
+	public function peopleAnswerTimeout():void {
+		trace("回答超时啦");
+		waitPeopleAnswer = false;
+		peopleAnswerIsTimeout = true;
+		lastPeopleAnswer = "";
+		interp.robotFollowUpThread = null;
+	}
 	// -----------------------------
 	// Robot FollowUp 
 	//------------------------------
-	public function robotFollowUpQuestion(question:String = '', keyWord:String = ''):void {
+	/**
+	 * 开始跟读
+	 * @param question 播报提示语
+	 * @param keyWord 关键字
+	 * @param timeoutNum 跟读超时时间
+	 */
+	public function robotFollowUpQuestion(question:String = '', keyWord:String = '', timeoutNum:int=10000):void {
 		var obj:ScratchObj = interp.targetObj();
 		if (interp.activeThread.firstTime) {
+			// 播报提示文本
 			GpipService.getInstance().tts(question);
+			// 关键字跟读
+			GpipService.getInstance().keyWorkFollowUp(keyWord);
 			
 			waitFollowUpAnswer = true;
+			followUpIsTimeout = false;
 			interp.robotFollowUpThread = interp.activeThread;
 			interp.activeThread.firstTime = false;
 			interp.doYield();
+			
+			// 超时计算
+			followUpTimeoutUint = setTimeout(followUpTimeout, timeoutNum);
 		} else {
 			interp.activeThread.firstTime = true;
 		}
 	}
 
 	public function robotFollowUpAnswer(answerText:String):void {
+		clearTimeout(followUpTimeoutUint);
 		waitFollowUpAnswer = false;
+		followUpIsTimeout = false;
 		followUpAnswer = answerText;
 		interp.robotFollowUpThread = null;
 	}
 
 	public function clearFollowUpThread():void {
+		clearTimeout(followUpTimeoutUint);
 		waitFollowUpAnswer = false;
+		followUpIsTimeout = false;
 		interp.robotFollowUpThread = null;
 	}
 	
+	public function followUpTimeout():void
+	{
+		trace("跟读超时啦");
+		waitFollowUpAnswer = false;
+		followUpIsTimeout = true;
+		followUpAnswer = "";
+		interp.robotFollowUpThread = null;
+	}
 	// -----------------------------
 	// Keyboard input handling
 	//------------------------------

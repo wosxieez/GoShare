@@ -67,6 +67,8 @@ package com.goshare.manager
 				AppManager.ApiEvtRegister(this, GpipDataParam.CHAT_INFO_BACK_EVENT, gpipReturnChatInfo, GlobalEventDict.APP_SPACE);
 				// 添加监听 - 语音指令
 				AppManager.ApiEvtRegister(this, GpipDataParam.CHAT_COMMAND_EVENT, asrCommandHandler, GlobalEventDict.APP_SPACE);
+				// 添加监听 - 跟读结果事件
+				AppManager.ApiEvtRegister(this, GpipDataParam.FOLLOW_UP_RESULT_EVENT, followUpResultHandler, GlobalEventDict.APP_SPACE);
 				
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_EVENT, receiveGpipEvent);
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_LOG_EVENT, receiveGpipLogEvent);
@@ -85,7 +87,9 @@ package com.goshare.manager
 			AppManager.ApiEvtUnRegister(GpipDataParam.CHAT_INFO_BACK_EVENT, GlobalEventDict.APP_SPACE);
 			// 取消监听 - 语音指令
 			AppManager.ApiEvtUnRegister(GpipDataParam.CHAT_COMMAND_EVENT, GlobalEventDict.APP_SPACE);
-			
+			// 取消监听 - 跟读结果事件
+			AppManager.ApiEvtUnRegister(GpipDataParam.FOLLOW_UP_RESULT_EVENT, GlobalEventDict.APP_SPACE);
+				
 			GpipService.getInstance().removeEventListener(GpipEvent.GPIP_SERVICE_EVENT, receiveGpipEvent);
 			GpipService.getInstance().removeEventListener(GpipEvent.GPIP_SERVICE_LOG_EVENT, receiveGpipLogEvent);
 			GpipService.getInstance().dispose();
@@ -219,6 +223,11 @@ package com.goshare.manager
 				robotSaid = chatInfo["answer_best"];
 			}
 			
+			// 如果当前 -等待来人回应Block回
+			if (app.runtime.waitPeopleAnswer && personSaid != null && personSaid != "") {
+				app.runtime.hideRobotAskPrompt(personSaid);
+			}
+			
 			// 触发所有监听block
 			function findTalkInfoListener(stack:Block, target:ScratchObj):void {
 				// 省去无谓的计算，这里只处理事件函数且有后续处理的Block
@@ -278,6 +287,19 @@ package com.goshare.manager
 			app.runtime.allStacksAndOwnersDo(findListenCommandsBlock);
 		}
 		
+		/**
+		 * 跟读结果信息处理
+		 */
+		private function followUpResultHandler(evt:EventExchangeEvent):void
+		{
+			var followUpInfo:Object = evt.exchangeData;
+			
+			var keyWord:String = followUpInfo["text"];
+			var resultStr:String = followUpInfo["followup_result"];
+			if (app.runtime.waitFollowUpAnswer) {
+				app.runtime.robotFollowUpAnswer(resultStr);
+			}
+		}
 		// -----------------------------  部分指令信息解析 end ------------------------------------
 		
 		/**

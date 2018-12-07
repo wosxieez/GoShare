@@ -74,8 +74,10 @@ package primitives {
 			primTable["volumeDecrease"] = volumeDecreaseHandler;
             primTable["robotSaid"] = primGoShareTTS;
 			primTable["robotAskAndWait"] = robotAskAndWaitHandler;
+			primTable["peopleAnswerTimeout"] = function(b:*):* { return app.runtime.peopleAnswerIsTimeout };
 			primTable["peopleAnswer"] = function(b:*):* { return app.runtime.lastPeopleAnswer };
 			primTable["followUpQuestion"] = followUpQuestionHandler;
+			primTable["followUpTimeout"] = function(b:*):* { return app.runtime.followUpIsTimeout };
 			primTable["followUpAnswer"] = function(b:*):* { return app.runtime.followUpAnswer };
 			primTable["include"] = includeRelationJudge;
 			
@@ -178,12 +180,6 @@ package primitives {
 			var question:String = interp.arg(b, 0) as String;
 			trace("robot ask and wait , question : " + question);
 			app.runtime.robotAskQuestion(question);
-//			setTimeout(test, 5000);
-		}
-		
-		private function test():void
-		{
-			app.runtime.hideRobotAskPrompt("我叫李白111");
 		}
 	
 		/**
@@ -197,8 +193,9 @@ package primitives {
 			}
 			var question:String = interp.arg(b, 0) as String;
 			var keyWord:String = interp.arg(b, 1) as String;
+			var timeoutNum:int = parseInt(interp.arg(b, 1));
 			trace("robot followup , question : " + question + "   keyword:" + keyWord);
-			app.runtime.robotFollowUpQuestion(question, keyWord);
+			app.runtime.robotFollowUpQuestion(question, keyWord, timeoutNum);
 		}
 		
 		/**

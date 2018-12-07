@@ -311,7 +311,7 @@ public class PaletteBuilder {
 			'backgroundIndex', 'sceneName', 'tempo', 'answer', 'timer', 'soundLevel', 'isLoud',
 			'sensor:', 'sensorPressed:', 'senseVideoMotion', 'xScroll', 'yScroll','getTilt',
 			'getPeopleIdentity', 'getPeopleSubjects', 'getPeopleName', 'peopleAnswer', 'peopleSaidTxt', 
-			'robotSaidTxt', 'currentFacesNum', 'currentScene', 'currentSysTime'];
+			'robotSaidTxt', 'currentFacesNum', 'currentScene', 'currentSysTime', 'followUpAnswer'];
 		return checkboxReporters.indexOf(op) > -1;
 	}
 
