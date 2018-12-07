@@ -206,7 +206,7 @@ public class Server implements IServer {
 		// Add a cache breaker if we're sending data and the url has no query string.
 		var nextSeparator:String = '?';
 		if (data && url.indexOf('?') == -1) {
-			url += '?v=' + Scratch.versionString + '&_rnd=' + Math.random();
+			url += '?v=1.0&_rnd=' + Math.random();
 			nextSeparator = '&';
 		}
 		for (var key:String in queryParams) {

@@ -229,7 +229,7 @@ public class ImagesPart extends UIPart {
 		var left:int = 8;
 		var buttonY:int = 32;
 		addChild(backdropLibraryButton = makeButton(costumeFromLibrary, 'landscape', left, buttonY + 1));
-		addChild(costumeLibraryButton = makeButton(costumeFromLibrary, 'library', left + 1, buttonY - 2));
+		addChild(costumeLibraryButton = makeButton(costumeFromLibrary, 'library', left, buttonY + 1));
 		addChild(paintButton = makeButton(paintCostume, 'paintbrush', left + 23, buttonY - 1));
 		addChild(importButton = makeButton(costumeFromComputer, 'import', left + 44, buttonY));
 		addChild(cameraButton = makeButton(costumeFromCamera, 'camera', left + 72, buttonY));
@@ -242,7 +242,8 @@ public class ImagesPart extends UIPart {
         importButton.height = 13;
         backdropLibraryButton.width = 14;
         backdropLibraryButton.height = 12;
-
+        costumeLibraryButton.width = 14;
+        costumeLibraryButton.height = 12;
     }
 
 	public function useBitmapEditor(flag:Boolean):void {

@@ -758,7 +758,6 @@ public class ScratchStage extends ScratchObj {
 		info.flashVersion = Capabilities.version;
 		if (Scratch.app.projectID != '') info.projectID = Scratch.app.projectID;
 		info.videoOn = isVideoOn();
-		info.swfVersion = Scratch.versionString;
 
 		delete info.loadInProgress;
 		if (Scratch.app.loadInProgress) info.loadInProgress = true; // log flag for debugging
