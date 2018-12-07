@@ -75,7 +75,11 @@ package primitives {
             primTable["robotSaid"] = primGoShareTTS;
 			primTable["robotAskAndWait"] = robotAskAndWaitHandler;
 			primTable["peopleAnswer"] = function(b:*):* { return app.runtime.lastPeopleAnswer };
+			primTable["followUpQuestion"] = followUpQuestionHandler;
+			primTable["followUpAnswer"] = function(b:*):* { return app.runtime.followUpAnswer };
 			primTable["include"] = includeRelationJudge;
+			
+			primTable["currentSysTime"] = function(b:*):* { return AppRunLoopManager.getInstance().nowSysDate};
 			
 			primTable["showExpression"] = showFaceExpreesion;
 			primTable["whenShowExpression"] = interp.primNoop;
@@ -174,7 +178,7 @@ package primitives {
 			var question:String = interp.arg(b, 0) as String;
 			trace("robot ask and wait , question : " + question);
 			app.runtime.robotAskQuestion(question);
-			setTimeout(test, 5000);
+//			setTimeout(test, 5000);
 		}
 		
 		private function test():void
@@ -183,11 +187,18 @@ package primitives {
 		}
 	
 		/**
-		 * 查询用户回答内容
+		 * 跟读并等待跟读结果答复
 		 */
-		private function getPeopleAnswer():String
+		private function followUpQuestionHandler(b:Block):void
 		{
-			return app.runtime.lastPeopleAnswer;
+			if (app.runtime.waitFollowUpAnswer) {
+				interp.doYield();
+				return;
+			}
+			var question:String = interp.arg(b, 0) as String;
+			var keyWord:String = interp.arg(b, 1) as String;
+			trace("robot followup , question : " + question + "   keyword:" + keyWord);
+			app.runtime.robotFollowUpQuestion(question, keyWord);
 		}
 		
 		/**

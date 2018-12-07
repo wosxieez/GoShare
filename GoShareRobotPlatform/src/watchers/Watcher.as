@@ -92,15 +92,21 @@ public class Watcher extends Sprite implements DragClient {
 	private var isDiscrete:Boolean = true;
 	private var mouseMoved:Boolean;
 
-	public function Watcher() {
-		frame = new ResizeableFrame(0x949191, 0xC1C4C7, 8);
-		addChild(frame);
-		addLabel();
-		readout = new WatcherReadout();
-		addChild(readout);
-		addSliderAndKnob();
-		slider.visible = knob.visible = false;
-		addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+	// 使用皮肤: default-默认，
+	private var skinName:String = "default";
+	
+	public function Watcher(skinType:String = "default") {
+		if (skinType == "default") {
+			// 默认的皮肤
+			frame = new ResizeableFrame(0x949191, 0xC1C4C7, 8);
+			addChild(frame);
+			addLabel();
+			readout = new WatcherReadout();
+			addChild(readout);
+			addSliderAndKnob();
+			slider.visible = knob.visible = false;
+			addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+		}
 	}
 
 	public static function strings():Array {
@@ -192,6 +198,8 @@ public class Watcher extends Sprite implements DragClient {
 			setLabel(Translator.map('sensor ' + param + '?'));
 		else if (cmd == 'timeAndDate')
 			setLabel(Translator.map(param));
+		else if (cmd == 'currentSysTime')
+			setLabel('');
 		else if (cmd == 'senseVideoMotion')
 			setLabel((target.isStage ? '' : target.objName + ': ') + Translator.map('video ' + param));
 		else
@@ -250,9 +258,11 @@ public class Watcher extends Sprite implements DragClient {
 			case "sensor:": return runtime.getSensor(param);
 			case "sensorPressed:": return runtime.getBooleanSensor(param);
 			case "timeAndDate": return runtime.getTimeString(param);
+			case "currentSysTime": return runtime.getCurrentSysTimeString();
 			case "xScroll": return app.stagePane.xScroll;
 			case "yScroll": return app.stagePane.yScroll;
 			case "peopleAnswer": return runtime.lastPeopleAnswer;
+			case "followUpAnswer": return runtime.followUpAnswer;
 			case "currentScene": return runtime.currentSceneDesc;
 			case "currentFacesNum": return runtime.currentFacesNum;
 			case "robotSaidTxt": return runtime.lastRobotSaid;

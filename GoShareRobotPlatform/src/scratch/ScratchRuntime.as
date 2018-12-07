@@ -21,15 +21,9 @@
 // John Maloney, September 2010
 
 package scratch {
-    import assets.Resources;
-
-    import blocks.Block;
-    import blocks.BlockArg;
-
     import com.goshare.gpipservice.GpipService;
-
-    import extensions.ExtensionManager;
-
+    import com.goshare.manager.AppRunLoopManager;
+    
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.DisplayObject;
@@ -53,33 +47,40 @@ package scratch {
     import flash.utils.Timer;
     import flash.utils.clearTimeout;
     import flash.utils.setTimeout;
-
+    
+    import assets.Resources;
+    
+    import blocks.Block;
+    import blocks.BlockArg;
+    
+    import extensions.ExtensionManager;
+    
     import interpreter.Interpreter;
     import interpreter.Variable;
-
+    
     import leelib.util.flvEncoder.ByteArrayFlvEncoder;
     import leelib.util.flvEncoder.FlvEncoder;
-
+    
     import logging.LogLevel;
-
+    
     import primitives.VideoMotionPrims;
-
+    
     import sound.ScratchSoundPlayer;
-
+    
     import translation.Translator;
-
+    
     import ui.BlockPalette;
     import ui.RecordingSpecEditor;
     import ui.SharingSpecEditor;
     import ui.media.MediaInfo;
-
+    
     import uiwidgets.DialogBox;
-
+    
     import util.CachedTimer;
     import util.ObjReader;
     import util.OldProjectReader;
     import util.ProjectIO;
-
+    
     import watchers.ListWatcher;
     import watchers.Watcher;
 
@@ -111,6 +112,8 @@ package scratch {
 	// Goshare Define
 	public var waitPeopleAnswer:Boolean;
 	public var lastPeopleAnswer:String = ''; // goshare ' robot ask and wait ' block  need
+	public var waitFollowUpAnswer:Boolean;
+	public var followUpAnswer:String='';
 	public var lastPeopleSaid:String = '';
 	public var lastRobotSaid:String = '';
 	public var currentFaceInfo:Object; // current faceInfo in front of robot
@@ -578,6 +581,7 @@ package scratch {
 		stopAll();
 		lastAnswer = '';
 		lastPeopleAnswer = '';
+		followUpAnswer = '';
 		if (app.stagePane.info.videoOn) {
 			// turn on video the first time if project was saved with camera on
 			app.stagePane.setVideoState('on');
@@ -596,6 +600,7 @@ package scratch {
 		stopAll();
 		lastAnswer = '';
 		lastPeopleAnswer = '';
+		followUpAnswer = '';
 		if (firstTime && app.stagePane.info.videoOn) {
 			// turn on video the first time if project was saved with camera on
 			app.stagePane.setVideoState('on');
@@ -1023,6 +1028,34 @@ package scratch {
 	}
 	
 	// -----------------------------
+	// Robot FollowUp 
+	//------------------------------
+	public function robotFollowUpQuestion(question:String = '', keyWord:String = ''):void {
+		var obj:ScratchObj = interp.targetObj();
+		if (interp.activeThread.firstTime) {
+			GpipService.getInstance().tts(question);
+			
+			waitFollowUpAnswer = true;
+			interp.robotFollowUpThread = interp.activeThread;
+			interp.activeThread.firstTime = false;
+			interp.doYield();
+		} else {
+			interp.activeThread.firstTime = true;
+		}
+	}
+
+	public function robotFollowUpAnswer(answerText:String):void {
+		waitFollowUpAnswer = false;
+		followUpAnswer = answerText;
+		interp.robotFollowUpThread = null;
+	}
+
+	public function clearFollowUpThread():void {
+		waitFollowUpAnswer = false;
+		interp.robotFollowUpThread = null;
+	}
+	
+	// -----------------------------
 	// Keyboard input handling
 	//------------------------------
 
@@ -1110,6 +1143,15 @@ package scratch {
 		return ''; // shouldn't happen
 	}
 
+	public function getCurrentSysTimeString():String {
+		// Return local time properties.
+		var sysDate:Date = AppRunLoopManager.getInstance().nowSysDate
+		if (sysDate) {
+			return sysDate.hours + ":" + sysDate.minutes + ":" + sysDate.seconds;
+		}
+		return ''; // shouldn't happen
+	}
+	
 	// -----------------------------
 	// Variables
 	//------------------------------

@@ -95,6 +95,7 @@ public class Interpreter {
 	private var bubbleThread:Thread;			// thread for reporter bubble
 	public var askThread:Thread;				// thread that opened the ask prompt
 	public  var robotAskThread:Thread; // 当使用 "当机器人问 并等待答复" block块时候开启的进程
+	public  var robotFollowUpThread:Thread; // 当使用 "跟读" block块时候开启的进程
 	
 	protected var debugFunc:Function;
 
@@ -190,6 +191,7 @@ public class Interpreter {
 				}
 				if (askThread == t) app.runtime.clearAskPrompts();
 				if (robotAskThread == t) app.runtime.clearRobotAskPrompts();
+				if (robotFollowUpThread == t) app.runtime.clearFollowUpThread();
 				t.stop();
 			}
 		}
@@ -205,6 +207,7 @@ public class Interpreter {
 			if ((threads[i].topBlock == b) && (threads[i].target == targetObj)) {
 				if (askThread == threads[i]) app.runtime.clearAskPrompts();
 				if (robotAskThread == threads[i]) app.runtime.clearRobotAskPrompts();
+				if (robotFollowUpThread == threads[i]) app.runtime.clearFollowUpThread();
 				threads[i] = newThread;
 				wasRunning = true;
 			}
