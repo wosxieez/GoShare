@@ -193,7 +193,8 @@ package primitives {
 			}
 			var question:String = interp.arg(b, 0) as String;
 			var keyWord:String = interp.arg(b, 1) as String;
-			var timeoutNum:int = parseInt(interp.arg(b, 1));
+			var tempNum:int = parseInt(interp.arg(b, 2));
+			var timeoutNum:int = isNaN(tempNum)? 10000:tempNum*1000;
 			trace("robot followup , question : " + question + "   keyword:" + keyWord);
 			app.runtime.robotFollowUpQuestion(question, keyWord, timeoutNum);
 		}

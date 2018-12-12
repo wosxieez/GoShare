@@ -422,7 +422,7 @@ package {
 			["语音询问 %s 并等待回答", " ", 13, "robotAskAndWait", '你叫什么名字呀？'],
 			["回答超时", "b", 13, "peopleAnswerTimeout"],
 			["回答结果", "r", 13, "peopleAnswer"],
-			["跟读 %s 并等待, 关键词 %s, 超时时间 %n秒", " ", 13, "followUpQuestion", '大家跟我读 春天', '春天'],
+			["跟读 %s 并等待, 关键词 %s, 超时时间 %n 秒", " ", 13, "followUpQuestion", '大家跟我读 春', '春', '10'],
 			["跟读超时", "b", 13, "followUpTimeout"],
 			["跟读结果", "r", 13, "followUpAnswer"],
 			["-"],
