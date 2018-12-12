@@ -23,6 +23,8 @@
 // This part holds the tab buttons to view scripts, costumes/scenes, or sounds.
 
 package ui.parts {
+import coco.component.Image;
+
 import flash.display.*;
 import flash.text.*;
 import translation.Translator;
@@ -91,13 +93,26 @@ public class TabsPart extends UIPart {
 
     private function makeTabImg(label:String, isSelected:Boolean):Sprite {
         var img:Sprite = new Sprite();
+
+        var iconOn:Image = new Image();
+        iconOn.width = 16;
+        iconOn.height = 13;
+        img.addChild(iconOn)
+
+        var iconOff:Image = new Image();
+        iconOff.width = 16;
+        iconOff.height = 13;
+        img.addChild(iconOff)
+
+        iconOn.source = "assets/UI/newIconForScratch/tabparts/"+label+'On.png';
+        iconOff.source = "assets/UI/newIconForScratch/tabparts/"+label+'Off.png';
+
         var tf:TextField = new TextField();
         tf.defaultTextFormat = new TextFormat(CSS.font, 12, isSelected ? CSS.onColor : CSS.offColor, false);
         tf.text = Translator.map(label);
         tf.width = tf.textWidth + 5;
         tf.height = tf.textHeight + 5;
-        tf.x = (70-tf.textWidth)/2;
-//        tf.y = 9;
+        tf.x = (70-tf.textWidth)/2+10;
         img.addChild(tf);
 
         var g:Graphics = img.graphics;
@@ -108,20 +123,28 @@ public class TabsPart extends UIPart {
         if(isSelected){
 //			drawTopBar(g, CSS.titleBarColors, getTopBarPath(w, h), w, h);
             tf.y = (30-12)/2-2;
+            tf.textColor = 0x5691fd;
             g.beginFill(0xffffff)
             g.lineStyle(1,0xaac8fe)
             g.drawRoundRectComplex(0,0,w,h,r,r,0,0)
+            iconOff.visible = false;
+            iconOn.visible = true;
         }
         else{
 //          drawTopBar(g, CSS.titleBarColors, getTopBarPath(w, h-4), w, h-4);
             tf.y = (30-12)/2;
+            tf.textColor = 0x888888;
             g.beginFill(0xf7f7f7)
             g.lineStyle(1,0xaac8fe)
             g.drawRoundRectComplex(0,4,w,h-4,r,r,0,0)
-
 //			drawSelected(g, [0xf2f2f2, 0xd1d2d3], getTopBarPath(w, h-4), w, h-4)
+            iconOff.visible = true;
+            iconOn.visible = false;
         };
-
+        iconOn.x = tf.x-20;
+        iconOn.y = tf.y+2;
+        iconOff.x = tf.x-20;
+        iconOff.y = tf.y+2;
         g.endFill();
         return img;
     }

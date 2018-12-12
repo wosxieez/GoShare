@@ -173,6 +173,7 @@ public class IconButton extends Sprite {
 		graphics.beginFill(0xA0, 0); // invisible but mouse-sensitive; min size 10x10
 		graphics.drawRect(0, 0, Math.max(10, img.width), Math.max(10, img.height));
 		graphics.endFill();
+
 	}
 
 	private function mouseDown(e:MouseEvent):void {
