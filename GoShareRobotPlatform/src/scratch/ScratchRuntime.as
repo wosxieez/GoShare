@@ -126,6 +126,9 @@ package scratch {
 	public var currentFacesNum:int = 0; // current face num in front of robot
 	public var currentSceneDesc:String = ''; // current scene desc
 	
+	public var leftHandInfo:Object; // extend Leap Motion：left hand action info
+	public var rightHandInfo:Object; // extend Leap Motion：right hand action info
+	
 	public function ScratchRuntime(app:Scratch, interp:Interpreter) {
 		this.app = app;
 		this.interp = interp;

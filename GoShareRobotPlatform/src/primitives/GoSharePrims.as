@@ -29,6 +29,7 @@ package primitives {
     import com.goshare.manager.AppRunLoopManager;
     import com.goshare.manager.ControllerManager;
     import com.goshare.manager.GpipManager;
+    import com.goshare.manager.LeapMotionManager;
     
     import flash.utils.Dictionary;
     import flash.utils.setTimeout;
@@ -39,8 +40,6 @@ package primitives {
     
     import scratch.ScratchObj;
     
-    import uiwidgets.DialogBox;
-
     public class GoSharePrims {
 
         private var app:Scratch;
@@ -98,6 +97,18 @@ package primitives {
 			
 			primTable["faceIsExist"] = function(b:*):* { return app.runtime.currentFaceInfo? true:false};
 			primTable["faceIsLeave"] = function(b:*):* { return !app.runtime.currentFaceInfo};
+			
+			primTable["gameBeginPlay"] = playGameBegin;
+			primTable["gameStopPlay"] = playGameStop;
+			primTable["handActionOpenAndClose"] = handActionOpenAndClose;
+			primTable["leftHandExist"] = function(b:*):* { return app.runtime.leftHandInfo? true:false};
+            primTable["leftHandActionFlag"] = leftHandIsHold;
+			primTable["leftHandActionX"] = function(b:*):* { return getHandLocalInfoX(true)};
+			primTable["leftHandActionY"] = function(b:*):* { return getHandLocalInfoY(true)};
+			primTable["rightHandExist"] = function(b:*):* { return app.runtime.rightHandInfo? true:false};
+			primTable["rightHandActionFlag"] = rightHandIsHold;
+			primTable["rightHandActionX"] = function(b:*):* { return getHandLocalInfoX(false)};
+			primTable["rightHandActionY"] = function(b:*):* { return getHandLocalInfoY(false)};
 			
 //            primTable["goSharePDF:"] = primGoSharePDF;
 //            primTable["goShareSWF:"] = primGoShareSWF;
@@ -427,6 +438,98 @@ package primitives {
 		private function getCurrentSceneHandler(b:Block):String
 		{
 			return app.runtime.currentSceneDesc;
+		}
+		
+		/**
+		 * 开始玩游戏
+		 */
+		private function playGameBegin(b:Block):void
+		{
+			var gameName:String = String(interp.arg(b, 0));
+		}
+		
+		/**
+		 * 停止玩游戏
+		 */
+		private function playGameStop(b:Block):void
+		{
+			var gameName:String = String(interp.arg(b, 0));
+		}
+		
+		/**
+		 * 开启/关闭手势检测
+		 */
+		private function handActionOpenAndClose(b:Block):void
+		{
+			var actionFlag:String = String(interp.arg(b, 0));
+			if (actionFlag == "打开") {
+				LeapMotionManager.getInstance().connectLeap("127.0.0.1", 9092);
+			}
+			if (actionFlag == "关闭") {
+				LeapMotionManager.getInstance().disconnectLeap();
+				Scratch.app.runtime.leftHandInfo = null;
+				Scratch.app.runtime.rightHandInfo = null;
+			}
+		}
+		
+		/**
+		 * 左手是否 '握起' 状态
+		 */
+		private function leftHandIsHold(b:Block):Boolean
+		{
+			if (Scratch.app.runtime.leftHandInfo && Scratch.app.runtime.leftHandInfo['grab'] == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		/**
+		 * 右手是否 '握起' 状态
+		 */
+		private function rightHandIsHold(b:Block):Boolean
+		{
+			if (Scratch.app.runtime.rightHandInfo && Scratch.app.runtime.rightHandInfo['grab'] == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		/**
+		 * 获取某只手的X坐标信息
+		 */
+		public static function getHandLocalInfoX(isLeft:Boolean = true):Number
+		{
+			if (isLeft) {
+				if (Scratch.app.runtime.leftHandInfo) {
+					return Scratch.app.runtime.leftHandInfo["X"];
+				}
+			} else {
+				if (Scratch.app.runtime.rightHandInfo) {
+					return Scratch.app.runtime.rightHandInfo["X"];
+				}
+			}
+			
+			return NaN;
+		}
+		
+		/**
+		 * 获取某只手的Y坐标信息
+		 */
+		public static function getHandLocalInfoY(isLeft:Boolean = true):Number
+		{
+			if (isLeft) {
+				if (Scratch.app.runtime.leftHandInfo) {
+					return -Scratch.app.runtime.leftHandInfo["Z"];
+				}
+			} else {
+				if (Scratch.app.runtime.rightHandInfo) {
+					return -Scratch.app.runtime.rightHandInfo["Z"];
+				}
+			}
+			
+			return NaN;
 		}
 		
 		private function primGoSharePDF(b:Block):void {

@@ -270,6 +270,10 @@ public class Watcher extends Sprite implements DragClient {
 			case "getPeopleName": return GoSharePrims.getCurrentPeopleInfo("name");
 			case "getPeopleIdentity": return GoSharePrims.getCurrentPeopleInfo("indentity");
 			case "getPeopleSubjects": return GoSharePrims.getCurrentPeopleInfo("subjects");
+			case "leftHandActionX": 	return GoSharePrims.getHandLocalInfoX(true);
+			case "leftHandActionY": 	return GoSharePrims.getHandLocalInfoY(true);
+			case "rightHandActionX": 	return GoSharePrims.getHandLocalInfoX(false);
+			case "rightHandActionY": 	return GoSharePrims.getHandLocalInfoY(false);
 		}
 
 		if(ExtensionManager.hasExtensionPrefix(cmd)) {

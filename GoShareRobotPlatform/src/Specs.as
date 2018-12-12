@@ -73,6 +73,7 @@ package {
             [11, "Parameter",	parameterColor],
             [12, "List",		listColor],
             [13, "Robot",		0xFF0000],
+			[14, "Device",		0x808000],
             [20, "Extension",	extensionsColor],
         ];
 
@@ -449,5 +450,21 @@ package {
 			["-"],
 			["当机器人接收到 %s 问题时",	"h", 13, "whenPeopleAsk"],
 			["当机器人收到 %m.commands 指令时",	"h", 13, "whenReceiveCommands"],
+			/*["-"],
+			["开始玩游戏 %m.game",	" ", 13, "gameBeginPlay"],
+			["停止玩游戏 %m.game",	" ", 13, "gameStopPlay"],*/
+			
+			// extend drvice
+			["%m.openAndClose 手势侦测与跟踪", " ", 14, "handActionOpenAndClose", "打开"],
+			["-"],
+			["是否检测到左手", "b", 14, "leftHandExist"],
+			["左手动作为 %m.gesture", "b", 14, "leftHandActionFlag", '抓取'],
+			["左手的X坐标", "r", 14, "leftHandActionX"],
+			["左手的Y坐标", "r", 14, "leftHandActionY"],
+			["-"],
+			["是否检测到右手", "b", 14, "rightHandExist"],
+			["右手动作为 %m.gesture", "b", 14, "rightHandActionFlag", '抓取'],
+			["右手的X坐标", "r", 14, "rightHandActionX"],
+			["右手的Y坐标", "r", 14, "rightHandActionY"],
         ];
     }}

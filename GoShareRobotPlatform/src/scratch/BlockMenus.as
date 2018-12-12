@@ -119,6 +119,8 @@ public class BlockMenus implements DragClient {
 		if (menuName == 'expression') menuHandler.expressionMenu(evt);
 		if (menuName == 'commands') menuHandler.commandsMenu(evt);
 		if (menuName == 'scenes') menuHandler.scenesMenu(evt);
+		if (menuName == 'game') menuHandler.gameMenu(evt);
+		if (menuName == 'gesture') menuHandler.gestureMenu(evt);
 	}
 
 	public static function strings():Array {
@@ -569,6 +571,21 @@ public class BlockMenus implements DragClient {
 		for each(var item:Object in scenesList) {
 			m.addItem(item["desc"]);
 		}
+		showMenu(m);
+	}
+	
+	private function gameMenu(evt:MouseEvent):void
+	{
+		var m:Menu = new Menu(setBlockArg, 'game');
+		m.addItem("抓字母");
+		showMenu(m);
+	}
+	
+	private function gestureMenu(evt:MouseEvent):void
+	{
+		var m:Menu = new Menu(setBlockArg, 'gesture');
+		m.addItem("张开");
+		m.addItem("抓取");
 		showMenu(m);
 	}
 	
