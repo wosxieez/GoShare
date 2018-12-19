@@ -1,5 +1,6 @@
 package com.goshare.util
 {
+	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
@@ -8,6 +9,7 @@ package com.goshare.util
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
+	import flash.utils.ByteArray;
 	import flash.utils.Timer;
 	
 	/**
@@ -20,6 +22,7 @@ package com.goshare.util
 		private var timeoutEnable:Boolean = false;
 		private var timeoutTimer:Timer;
 		
+		private var imgLoader:Loader;
 		private var loadRequest:URLRequest;
 		private var resultCallback:Function;
 		private var faultCallback:Function;
@@ -66,6 +69,48 @@ package com.goshare.util
 			super.load(loadRequest);
 		}
 		
+		/**
+		 * 加载本地图片资源
+		 * @param file url
+		 */
+		public function loadBitmapDataFromLocalImage(url:String):void
+		{
+			var imgURL:URLRequest = new URLRequest(url);
+
+			imgLoader = new Loader();
+			imgLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, finished);
+			imgLoader.load(imgURL);
+			
+			function finished(evt:Event):void {
+			　trace("successfully loaded the image!");
+				imgLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE, finished);
+			
+				if (resultCallback != null) {
+					resultCallback.call(null, evt.target.content.bitmapData);
+				}
+				destory();
+			}
+		}
+		
+		/**
+		 * 加载本地图片资源
+		 * @param file url
+		 */
+		public function loadBitmapDataFromByteArray(byt:ByteArray):void
+		{
+			imgLoader = new Loader();
+			imgLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, finished);
+			imgLoader.loadBytes(byt);
+			
+			function finished(evt:Event):void {
+				imgLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE, finished);
+			
+				if (resultCallback != null) {
+					resultCallback.call(null, evt.target.content.bitmapData);
+				}
+				destory();
+			}
+		}
 		
 		/**
 		 * 访问远程http交易

@@ -466,5 +466,12 @@ package {
 			["右手动作为 %m.gesture", "b", 14, "rightHandActionFlag", '抓取'],
 			["右手的X坐标", "r", 14, "rightHandActionX"],
 			["右手的Y坐标", "r", 14, "rightHandActionY"],
+			["-"],
+			["开启人脸捕获", " ", 14, "openFaceCapture"],
+			["关闭人脸捕获", " ", 14, "closeFaceCapture"],
+/*			["-"],
+			["打开进程 %s ", " ", 14, "openProcessApp", "assets/Games/Playground/Windows/Orientation/Orientation.exe"],
+			["关闭进程 %s ", " ", 14, "closeProcessApp"],*/
+			
         ];
     }}

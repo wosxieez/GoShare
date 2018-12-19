@@ -30,7 +30,11 @@ package primitives {
     import com.goshare.manager.ControllerManager;
     import com.goshare.manager.GpipManager;
     import com.goshare.manager.LeapMotionManager;
+    import com.goshare.util.BitmapUtil;
+    import com.goshare.util.UrlLoader;
     
+    import flash.display.BitmapData;
+    import flash.geom.Matrix;
     import flash.utils.Dictionary;
     import flash.utils.setTimeout;
     
@@ -38,7 +42,9 @@ package primitives {
     
     import interpreter.Interpreter;
     
+    import scratch.ScratchCostume;
     import scratch.ScratchObj;
+    import scratch.ScratchSprite;
     
     public class GoSharePrims {
 
@@ -109,6 +115,12 @@ package primitives {
 			primTable["rightHandActionFlag"] = rightHandIsHold;
 			primTable["rightHandActionX"] = function(b:*):* { return getHandLocalInfoX(false)};
 			primTable["rightHandActionY"] = function(b:*):* { return getHandLocalInfoY(false)};
+			
+			primTable["openProcessApp"] = rightHandIsHold;
+			primTable["closeProcessApp"] = rightHandIsHold;
+			
+			primTable["openFaceCapture"] = openFaceCaptureHandler;
+			primTable["closeFaceCapture"] = closeFaceCaptureHandler;
 			
 //            primTable["goSharePDF:"] = primGoSharePDF;
 //            primTable["goShareSWF:"] = primGoShareSWF;
@@ -467,8 +479,8 @@ package primitives {
 			}
 			if (actionFlag == "关闭") {
 				LeapMotionManager.getInstance().disconnectLeap();
-				Scratch.app.runtime.leftHandInfo = null;
-				Scratch.app.runtime.rightHandInfo = null;
+				app.runtime.leftHandInfo = null;
+				app.runtime.rightHandInfo = null;
 			}
 		}
 		
@@ -477,7 +489,7 @@ package primitives {
 		 */
 		private function leftHandIsHold(b:Block):Boolean
 		{
-			if (Scratch.app.runtime.leftHandInfo && Scratch.app.runtime.leftHandInfo['grab'] == 1) {
+			if (app.runtime.leftHandInfo && app.runtime.leftHandInfo['grab'] == 1) {
 				return true;
 			} else {
 				return false;
@@ -489,7 +501,7 @@ package primitives {
 		 */
 		private function rightHandIsHold(b:Block):Boolean
 		{
-			if (Scratch.app.runtime.rightHandInfo && Scratch.app.runtime.rightHandInfo['grab'] == 1) {
+			if (app.runtime.rightHandInfo && app.runtime.rightHandInfo['grab'] == 1) {
 				return true;
 			} else {
 				return false;
@@ -530,6 +542,68 @@ package primitives {
 			}
 			
 			return NaN;
+		}
+		
+		
+		/**
+		 * 开启人脸侦测捕获
+		 */
+		private static var faceCostume:ScratchCostume;
+		private static var faceCostumeDefaultW:Number = 0;
+		private static var faceCostumeDefaultH:Number = 0;
+		private function openFaceCaptureHandler(b:Block):void 
+		{
+			// 获得当前人脸对象的造型引用
+			setFaceCostum();
+			if (faceCostume) {
+				// 调用GPIP接口
+				GpipService.getInstance().faceImageCaptureService(true);
+			}
+		}
+		
+		/**
+		 * 关闭人脸侦测捕获
+		 */
+		private function closeFaceCaptureHandler(b:Block):void 
+		{
+			faceCostume = null;
+			faceCostumeDefaultW = 0;
+			faceCostumeDefaultH = 0;
+			// 调用GPIP接口
+			GpipService.getInstance().faceImageCaptureService(false);
+		}
+		
+		private function setFaceCostum():void
+		{
+			var faceSprite:ScratchSprite = app.stagePane.spriteNamed("CatchFace");
+			
+			if (faceSprite) {
+				// 获得当前造型
+				faceCostume = faceSprite.currentCostume();
+				if (faceCostume) {
+					faceCostumeDefaultW = faceCostume.width();
+					faceCostumeDefaultH = faceCostume.height();
+				}
+			}
+		}
+		
+		/**
+		 * 刷新人脸图像 到 指定的对象中
+		 */
+		public static function reDrawCatchFaceCostum(imgData:BitmapData):void
+		{
+			if (faceCostume && imgData) {
+				var scaleW:Number = faceCostumeDefaultW/imgData.width;
+				var scaleH:Number = faceCostumeDefaultH/imgData.height;
+				var scale:Number = Math.min(scaleW, scaleH); // 按照缩放最大的那个边界进行缩放
+				
+				var showH:Number = imgData.height * scale;
+				var showW:Number = imgData.width * scale;
+				trace("-----showWidth:" + showH + "     showHeight:"  + showW);
+				
+				var temp:BitmapData = BitmapUtil.scaleBitmapData(imgData, scale, scale);
+				faceCostume.setBitmapData(temp, 31, 100, 1);
+			}
 		}
 		
 		private function primGoSharePDF(b:Block):void {

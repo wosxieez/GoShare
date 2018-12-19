@@ -68,6 +68,9 @@ package com.goshare.gpipservice.data
 		public static var TTS_SPEAK_SERVICE:String = "EventOfPlayCustomText";
 		/** 跟读服务 **/
 		public static var KEYWORD_FOLLOW_UP_SERVICE:String = "EventOfFollowUpRequest";
+		/** 人脸抠图服务开启/关闭 **/
+		public static var FACE_IMAGE_CAPTURE_SERVICE:String = "EventOfFaceImageSwitch";
+		
 		
 		/** 场景同步服务 **/
 		public static var GPIP_SCENE_SYNCHRO:String = "EventOfStatusInfoSync";
@@ -79,6 +82,8 @@ package com.goshare.gpipservice.data
 		public static var CHAT_COMMAND_EVENT:String = "EventOfBusinessPass";
 		/** 跟读结果事件 - 结果回应 **/
 		public static var FOLLOW_UP_RESULT_EVENT:String = "EventOfFollowUpResponse";
+		/** 推送当前截取的人脸影像 **/
+		public static var FACE_IMAGE_CAPTURE_EVENT:String = "EventOfFaceImage";
 		
 		// ------------------------------- 库工程对外事件 ----------------------
 		/** 查询数据结果 **/

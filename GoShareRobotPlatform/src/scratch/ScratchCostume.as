@@ -212,12 +212,12 @@ public class ScratchCostume {
 		return result;
 	}
 
-	public function setBitmapData(bm:BitmapData, centerX:int, centerY:int):void {
+	public function setBitmapData(bm:BitmapData, centerX:int, centerY:int, resolution:int=2):void {
 		clearOldCostume();
 		bitmap = baseLayerBitmap = bm;
 		baseLayerID = WasEdited;
 		baseLayerMD5 = null;
-		bitmapResolution = 2;
+		bitmapResolution = resolution;
 		rotationCenterX = centerX;
 		rotationCenterY = centerY;
 		if (Scratch.app && Scratch.app.viewedObj() && (Scratch.app.viewedObj().currentCostume() == this)) {

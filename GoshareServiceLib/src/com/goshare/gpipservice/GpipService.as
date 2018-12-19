@@ -384,6 +384,18 @@ package com.goshare.gpipservice
             doServiceEx(GpipDataParam.KEYWORD_FOLLOW_UP_SERVICE, {keyword: keyWord})
         }
 		
+		/**
+         * 开启/关闭 平台人脸抠图服务
+         * @param isOpen 开启/关闭
+         */
+        public function faceImageCaptureService(isOpen:Boolean): void {
+			if (isOpen) {
+	            doServiceEx(GpipDataParam.FACE_IMAGE_CAPTURE_SERVICE, {"switch":1});
+			} else {
+				doServiceEx(GpipDataParam.FACE_IMAGE_CAPTURE_SERVICE, {"switch":0});
+			}
+        }
+		
         /**
          * 根据name获取对应的Gpip场景
          */

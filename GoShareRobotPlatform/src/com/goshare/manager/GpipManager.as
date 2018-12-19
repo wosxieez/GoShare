@@ -5,10 +5,15 @@ package com.goshare.manager
 	import com.goshare.gpipservice.GpipService;
 	import com.goshare.gpipservice.data.GpipDataParam;
 	import com.goshare.gpipservice.event.GpipEvent;
+	import com.goshare.util.BitmapUtil;
+	import com.goshare.util.UrlLoader;
 	
+	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	
 	import blocks.Block;
+	
+	import primitives.GoSharePrims;
 	
 	import scratch.ScratchObj;
 
@@ -69,6 +74,8 @@ package com.goshare.manager
 				AppManager.ApiEvtRegister(this, GpipDataParam.CHAT_COMMAND_EVENT, asrCommandHandler, GlobalEventDict.APP_SPACE);
 				// 添加监听 - 跟读结果事件
 				AppManager.ApiEvtRegister(this, GpipDataParam.FOLLOW_UP_RESULT_EVENT, followUpResultHandler, GlobalEventDict.APP_SPACE);
+				// 添加监听 - 人脸影像获取事件
+				AppManager.ApiEvtRegister(this, GpipDataParam.FACE_IMAGE_CAPTURE_EVENT, getPersonFaceImgHandler, GlobalEventDict.APP_SPACE);
 				
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_EVENT, receiveGpipEvent);
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_LOG_EVENT, receiveGpipLogEvent);
@@ -300,6 +307,47 @@ package com.goshare.manager
 				app.runtime.robotFollowUpAnswer(resultStr);
 			}
 		}
+		
+		/**
+		 * GPIP推送人脸影像事件
+		 */
+		private var preFileText:String = "";
+		private function getPersonFaceImgHandler(evt:EventExchangeEvent):void
+		{
+			var faceImgInfo:Object = evt.exchangeData;
+			
+			if (faceImgInfo && faceImgInfo.hasOwnProperty("image_index")) {
+				var index:int = parseInt(faceImgInfo["image_index"]);
+				if (!isNaN(index)) {
+					var imgDataPath:String = "C://temp/face_image_" + index + ".txt";
+					
+					var faceImgFile:UrlLoader = new UrlLoader(faceImgFileReadSuc, faceImgFileReadFail, 10000);
+					faceImgFile.loadCfgFile(imgDataPath);
+				}
+			}
+		}
+		
+		private function faceImgFileReadSuc(imgDataStr:Object):void
+		{
+			var readText:String = String(imgDataStr);
+			if (readText != preFileText) {
+				// 与上次不一样
+				var imageData:Object = JSON.parse(readText);
+				
+				function getBitmapDataCallback(imgBitmap:BitmapData):void {
+					if (imgBitmap) {
+						GoSharePrims.reDrawCatchFaceCostum(imgBitmap);
+					}
+				}
+				BitmapUtil.decodeJpgBase64(imageData["image"], getBitmapDataCallback)
+			}
+		}
+		
+		private function faceImgFileReadFail(failReason:String):void
+		{
+			trace("影像数据读取失败：" + failReason);
+		}
+		
 		// -----------------------------  部分指令信息解析 end ------------------------------------
 		
 		/**
