@@ -55,8 +55,8 @@ package com.goshare.manager
 					var processFile:File;
 					if (appRelativePath.indexOf("App://") == 0) {
 						// exe程序为相对本应用的路径
-						appRelativePath = appRelativePath.slice(6);
-						processFile = File.applicationDirectory.resolvePath(appRelativePath);
+						var tmpPath:String = appRelativePath.slice(6);
+						processFile = File.applicationDirectory.resolvePath(tmpPath);
 					} else {
 						// exe程序为绝对路径
 						processFile = new File(appRelativePath);
