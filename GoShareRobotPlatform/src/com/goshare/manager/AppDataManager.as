@@ -44,6 +44,11 @@ package com.goshare.manager
 		 */
 		public var sceneList:Array = [];
 		
+		/**
+		 * 本地其他应用配置清单
+		 */
+		public var localAppList:Array = [];
+		
 		// ------------------------------------------ method ---------------------------------
 		public function init():void
 		{
@@ -73,6 +78,10 @@ package com.goshare.manager
 			// 加载场景配置清单 sceneconfig.xml
 			var scenesLoader:UrlLoader = new UrlLoader(loadSceneInfoSuc, loadSceneInfoFail, 10000);
 			scenesLoader.loadCfgFile("conf/SceneConfig.xml");
+			
+			// 加载本地第三方应用配置清单 LocalAppConfig.xml
+			var localAppLoader:UrlLoader = new UrlLoader(localAppConfigSuc, localAppConfigFail, 10000);
+			localAppLoader.loadCfgFile("conf/LocalAppConfig.xml");
 		}
 		
 		/**
@@ -184,6 +193,30 @@ package com.goshare.manager
 		private function loadSceneInfoFail(failReason:String):void
 		{
 			log("指令清单[SceneConfig.xml] 加载失败.." + failReason);
+		}
+		
+		/**
+		 * 本地第三方应用配置信息加载成功
+		 */
+		private function localAppConfigSuc(appInfoCfg:Object):void
+		{
+			log("本地其他应用配置清单[LocalAppConfig.xml] 加载成功..");
+			
+			if (appInfoCfg) {
+				var cfgXML:XML = XML(appInfoCfg);
+				var cmdList:XMLList = cfgXML.localApp;
+				for each(var item:XML in cmdList) {
+					var localApp:Object = {};
+					localApp["name"] = item.@name;
+					localApp["relativePath"] = item.@relativePath;
+					localAppList.push(localApp);
+				}
+			}
+		}
+		
+		private function localAppConfigFail(failReason:String):void
+		{
+			log("本地其他应用配置清单[LocalAppConfig.xml] 加载失败.." + failReason);
 		}
 		
 		/**

@@ -469,9 +469,8 @@ package {
 			["-"],
 			["开启人脸捕获", " ", 14, "openFaceCapture"],
 			["关闭人脸捕获", " ", 14, "closeFaceCapture"],
-/*			["-"],
-			["打开进程 %s ", " ", 14, "openProcessApp", "assets/Games/Playground/Windows/Orientation/Orientation.exe"],
-			["关闭进程 %s ", " ", 14, "closeProcessApp"],*/
-			
+			["-"],
+			["打开本地应用 %m.localApp ", " ", 14, "openProcessApp"],
+			["关闭本地应用 %m.localApp ", " ", 14, "closeProcessApp"]
         ];
     }}

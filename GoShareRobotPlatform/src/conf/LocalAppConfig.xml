@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 以“App://”为开头的为相对路径，否则为绝对路径  -->
+	<localApp id="001" name="体感游戏" relativePath="App://assets/Games/Playground/Windows/Orientation/Orientation.exe"/>
+</root>

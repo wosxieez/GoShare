@@ -41,5 +41,7 @@
             </icon>
         </fileType>
     </fileTypes>
+    
+    <supportedProfiles>extendedDesktop</supportedProfiles>
 
 </application>

@@ -30,11 +30,10 @@ package primitives {
     import com.goshare.manager.ControllerManager;
     import com.goshare.manager.GpipManager;
     import com.goshare.manager.LeapMotionManager;
+    import com.goshare.manager.ProcessAppManager;
     import com.goshare.util.BitmapUtil;
-    import com.goshare.util.UrlLoader;
     
     import flash.display.BitmapData;
-    import flash.geom.Matrix;
     import flash.utils.Dictionary;
     import flash.utils.setTimeout;
     
@@ -116,8 +115,8 @@ package primitives {
 			primTable["rightHandActionX"] = function(b:*):* { return getHandLocalInfoX(false)};
 			primTable["rightHandActionY"] = function(b:*):* { return getHandLocalInfoY(false)};
 			
-			primTable["openProcessApp"] = rightHandIsHold;
-			primTable["closeProcessApp"] = rightHandIsHold;
+			primTable["openProcessApp"] = openLocalAppProcess;
+			primTable["closeProcessApp"] = closeLocalAppProcess;
 			
 			primTable["openFaceCapture"] = openFaceCaptureHandler;
 			primTable["closeFaceCapture"] = closeFaceCaptureHandler;
@@ -604,6 +603,46 @@ package primitives {
 				var temp:BitmapData = BitmapUtil.scaleBitmapData(imgData, scale, scale);
 				faceCostume.setBitmapData(temp, 31, 100, 1);
 			}
+		}
+		
+		/**
+		 * 打开本地应用
+		 */
+		private function openLocalAppProcess(b:Block):void
+		{
+			var appName:String = String(interp.arg(b, 0));
+			var appPath:String = "";
+			
+			var temp:Array = AppDataManager.getInstance().localAppList;
+			for (var i:int = 0; i < temp.length; i++) 
+			{
+				if (temp[i]["name"] == appName) {
+					appPath = temp[i]["relativePath"];
+					break;
+				}
+			}
+			if (appName != "" && appPath != "") {
+				ProcessAppManager.getInstance().startThirdProcess(appName, appPath);
+			}
+		}
+		
+		/**
+		 * 关闭本地应用
+		 */
+		private function closeLocalAppProcess(b:Block):void
+		{
+			var appName:String = String(interp.arg(b, 0));
+			var appPath:String = "";
+			
+			var temp:Array = AppDataManager.getInstance().localAppList;
+			for (var i:int = 0; i < temp.length; i++) 
+			{
+				if (temp[i]["name"] == appName) {
+					appPath = temp[i]["relativePath"];
+					break;
+				}
+			}
+			ProcessAppManager.getInstance().stopThirdProcess(appName, appPath);
 		}
 		
 		private function primGoSharePDF(b:Block):void {
