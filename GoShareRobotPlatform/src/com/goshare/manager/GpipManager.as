@@ -76,6 +76,8 @@ package com.goshare.manager
 				AppManager.ApiEvtRegister(this, GpipDataParam.FOLLOW_UP_RESULT_EVENT, followUpResultHandler, GlobalEventDict.APP_SPACE);
 				// 添加监听 - 人脸影像获取事件
 				AppManager.ApiEvtRegister(this, GpipDataParam.FACE_IMAGE_CAPTURE_EVENT, getPersonFaceImgHandler, GlobalEventDict.APP_SPACE);
+				// 添加监听 - 语音播报结束事件
+				AppManager.ApiEvtRegister(this, GpipDataParam.TTS_SPEAK_COMPLETE_EVENT, playTTSCompleteHandler, GlobalEventDict.APP_SPACE);
 				
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_EVENT, receiveGpipEvent);
 				GpipService.getInstance().addEventListener(GpipEvent.GPIP_SERVICE_LOG_EVENT, receiveGpipLogEvent);
@@ -96,7 +98,11 @@ package com.goshare.manager
 			AppManager.ApiEvtUnRegister(GpipDataParam.CHAT_COMMAND_EVENT, GlobalEventDict.APP_SPACE);
 			// 取消监听 - 跟读结果事件
 			AppManager.ApiEvtUnRegister(GpipDataParam.FOLLOW_UP_RESULT_EVENT, GlobalEventDict.APP_SPACE);
-				
+			// 取消监听 - 人脸影像获取事件
+			AppManager.ApiEvtUnRegister(GpipDataParam.FACE_IMAGE_CAPTURE_EVENT, GlobalEventDict.APP_SPACE);
+			// 取消监听 - 语音播报结束事件
+			AppManager.ApiEvtUnRegister(GpipDataParam.TTS_SPEAK_COMPLETE_EVENT, GlobalEventDict.APP_SPACE);
+			
 			GpipService.getInstance().removeEventListener(GpipEvent.GPIP_SERVICE_EVENT, receiveGpipEvent);
 			GpipService.getInstance().removeEventListener(GpipEvent.GPIP_SERVICE_LOG_EVENT, receiveGpipLogEvent);
 			GpipService.getInstance().dispose();
@@ -346,6 +352,14 @@ package com.goshare.manager
 		private function faceImgFileReadFail(failReason:String):void
 		{
 			trace("影像数据读取失败：" + failReason);
+		}
+		
+		/**
+		 * 语音播报结束事件
+		 */
+		private function playTTSCompleteHandler(evt:EventExchangeEvent):void
+		{
+			app.runtime.ttsPlayIng = false;
 		}
 		
 		// -----------------------------  部分指令信息解析 end ------------------------------------

@@ -129,6 +129,8 @@ package scratch {
 	public var leftHandInfo:Object; // extend Leap Motion：left hand action info
 	public var rightHandInfo:Object; // extend Leap Motion：right hand action info
 	
+	public var ttsPlayIng:Boolean = false;
+	
 	public function ScratchRuntime(app:Scratch, interp:Interpreter) {
 		this.app = app;
 		this.interp = interp;

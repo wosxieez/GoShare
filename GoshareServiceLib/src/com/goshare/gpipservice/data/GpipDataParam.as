@@ -80,6 +80,8 @@ package com.goshare.gpipservice.data
 		public static var CHAT_INFO_BACK_EVENT:String = "EventOfAnswerType";
 		/** 语音指令事件 **/
 		public static var CHAT_COMMAND_EVENT:String = "EventOfBusinessPass";
+		/** 语音播报结束事件 **/
+		public static var TTS_SPEAK_COMPLETE_EVENT:String = "EventOfAudioPlayCompleted";
 		/** 跟读结果事件 - 结果回应 **/
 		public static var FOLLOW_UP_RESULT_EVENT:String = "EventOfFollowUpResponse";
 		/** 推送当前截取的人脸影像 **/

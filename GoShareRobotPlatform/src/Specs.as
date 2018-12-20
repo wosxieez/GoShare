@@ -420,6 +420,7 @@ package {
 			["当前时间(HH:MM:SS)", 				"r", 13, "currentSysTime"],
 			["-"],
             ["机器人说 %s", " ", 13, "robotSaid", '你好'],
+			["机器人说 %s 并等待结束", " ", 13, "robotSaidUntilDone", '你好'],
 			["语音询问 %s 并等待回答", " ", 13, "robotAskAndWait", '你叫什么名字呀？'],
 			["回答超时", "b", 13, "peopleAnswerTimeout"],
 			["回答结果", "r", 13, "peopleAnswer"],

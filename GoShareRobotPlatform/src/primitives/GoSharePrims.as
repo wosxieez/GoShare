@@ -40,6 +40,7 @@ package primitives {
     import blocks.Block;
     
     import interpreter.Interpreter;
+    import interpreter.Thread;
     
     import scratch.ScratchCostume;
     import scratch.ScratchObj;
@@ -77,6 +78,7 @@ package primitives {
 			primTable["volumeIncrease"] = volumeIncreaseHandler;
 			primTable["volumeDecrease"] = volumeDecreaseHandler;
             primTable["robotSaid"] = primGoShareTTS;
+			primTable["robotSaidUntilDone"] = primGoShareTTSUntilDone;
 			primTable["robotAskAndWait"] = robotAskAndWaitHandler;
 			primTable["peopleAnswerTimeout"] = function(b:*):* { return app.runtime.peopleAnswerIsTimeout };
 			primTable["peopleAnswer"] = function(b:*):* { return app.runtime.lastPeopleAnswer };
@@ -121,6 +123,7 @@ package primitives {
 			primTable["openFaceCapture"] = openFaceCaptureHandler;
 			primTable["closeFaceCapture"] = closeFaceCaptureHandler;
 			
+			
 //            primTable["goSharePDF:"] = primGoSharePDF;
 //            primTable["goShareSWF:"] = primGoShareSWF;
 //            primTable["goShareMove:"] = primGoShareSWF;
@@ -162,8 +165,39 @@ package primitives {
 		 */
 		private function primGoShareTTS(b:Block):void {
 			trace('do tts start ')
-			GpipService.getInstance().tts(interp.arg(b, 0));
+			if (GpipService.getInstance().connected()) {
+				app.runtime.ttsPlayIng = true;
+				GpipService.getInstance().tts(interp.arg(b, 0));
+			} else {
+				app.runtime.ttsPlayIng = false;
+			}
 			trace('do tts end ')
+		}
+		
+		/**
+		 * 机器人进行文本播报并等待结束
+		 */
+		private function primGoShareTTSUntilDone(b:Block):void {
+			
+			var activeThread:Thread = interp.activeThread;
+			if (activeThread.firstTime) {
+				if (GpipService.getInstance().connected()) {
+					app.runtime.ttsPlayIng = true;
+					GpipService.getInstance().tts(interp.arg(b, 0));
+					
+					activeThread.tmpObj = null;
+					activeThread.firstTime = false;
+				} else {
+					app.runtime.ttsPlayIng = false;
+				}
+			}
+			
+			if (!app.runtime.ttsPlayIng) { // finished playing
+				activeThread.tmp = 0;
+				activeThread.firstTime = true;
+			} else {
+				interp.doYield();
+			}
 		}
 		
 		/**
@@ -193,8 +227,7 @@ package primitives {
 		/**
 		 * 机器人问并等待答复
 		 */
-		private function robotAskAndWaitHandler(b:Block):void
-		{
+		private function robotAskAndWaitHandler(b:Block):void {
 			if (app.runtime.waitPeopleAnswer) {
 				interp.doYield();
 				return;
@@ -207,8 +240,7 @@ package primitives {
 		/**
 		 * 跟读并等待跟读结果答复
 		 */
-		private function followUpQuestionHandler(b:Block):void
-		{
+		private function followUpQuestionHandler(b:Block):void {
 			if (app.runtime.waitFollowUpAnswer) {
 				interp.doYield();
 				return;
@@ -225,8 +257,7 @@ package primitives {
 		 * 获取当前来人身份信息
 		 * @param key 具体身份关键字：name-名字; indentity-角色; subjects-任职科目
 		 */
-		public static function getCurrentPeopleInfo(key:String):String
-		{
+		public static function getCurrentPeopleInfo(key:String):String {
 			var resultText:String = "";
 			
 			var peopleInfo:Object = Scratch.app.runtime.currentFaceInfo;
