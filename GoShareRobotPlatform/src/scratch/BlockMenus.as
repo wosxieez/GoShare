@@ -791,7 +791,7 @@ public class BlockMenus implements DragClient {
 	}
 
 	private function deleteVarOrList():void {
-		function doDelete(selection:*):void {
+		function doDelete(selection:*=null):void {
 			if (block.op == Specs.GET_VAR) {
 				app.runtime.deleteVariable(blockVarOrListName());
 			} else {
